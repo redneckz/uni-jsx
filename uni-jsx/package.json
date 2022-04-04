@@ -1,0 +1,7 @@
+{
+  "name": "@redneckz/uni-jsx",
+  "version": "0.1.0",
+  "license": "MIT",
+  "module": "./index.js",
+  "types": "./index.d.ts"
+}

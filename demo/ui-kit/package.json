@@ -1,0 +1,18 @@
+{
+  "name": "@demo/ui-kit",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./lib && tsc --build --verbose"
+  },
+  "dependencies": {
+    "@redneckz/uni-jsx": "workspace:*"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  }
+}

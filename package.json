@@ -1,0 +1,31 @@
+{
+  "name": "uni-jsx",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "redneckz",
+    "email": "vasyaselsky@yandex.ru"
+  },
+  "repository": {
+    "url": "https://github.com/redneckz/uni-jsx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/redneckz/uni-jsx/issues"
+  },
+  "packageManager": "yarn@3.2.0",
+  "workspaces": [
+    "uni-jsx",
+    "demo/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach --topological --all run build",
+    "start:vue": "yarn demo/vue-demo start"
+  },
+  "devDependencies": {
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,md}": "yarn prettier --write"
+  }
+}
