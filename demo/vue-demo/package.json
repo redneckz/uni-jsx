@@ -1,0 +1,22 @@
+{
+  "name": "@demo/vue-demo",
+  "version": "0.1.1",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve -p 8090",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@demo/ui-kit": "*",
+    "@redneckz/uni-jsx": "*",
+    "core-js": "3.25.5",
+    "vue": "3.2.40"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "typescript": "4.7.4"
+  }
+}

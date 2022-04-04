@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@redneckz/uni-jsx",
+    "allowJs": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": false,
+
+    /* Module Resolution Options */
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    /* Advanced Options */
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}

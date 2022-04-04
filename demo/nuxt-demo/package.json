@@ -1,0 +1,17 @@
+{
+  "name": "@demo/nuxt-demo",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev -p 8060",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@demo/ui-kit": "*",
+    "@redneckz/uni-jsx": "*"
+  },
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.11"
+  }
+}
