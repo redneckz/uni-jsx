@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "ESNEXT",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "allowJs": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@redneckz/uni-jsx",
+    "allowJs": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "./lib",
