@@ -1,10 +1,10 @@
-# [Vue] Demo of unified JSX
+# [React] Demo of unified JSX
 
 ## How-to
 
 ```shell
 $ yarn # install deps
-$ yarn start # http://localhost:8090
+$ yarn start # http://localhost:8080
 ```
 
 ## Description

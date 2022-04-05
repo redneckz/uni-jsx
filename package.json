@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "build": "yarn workspaces foreach --topological --all run build",
-    "start:vue": "yarn demo/vue-demo start"
+    "start:vue": "yarn demo/vue-demo start",
+    "start:react": "yarn demo/react-demo start"
   },
   "devDependencies": {
     "lint-staged": "^12.3.7",

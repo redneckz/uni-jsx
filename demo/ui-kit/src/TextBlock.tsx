@@ -3,11 +3,10 @@ import { JSX } from '@redneckz/uni-jsx';
 export interface TextBlockProps {
   primary?: string;
   secondary?: string;
-  children?: unknown;
   onCite?: (ev: PointerEvent) => void;
 }
 
-export const TextBlock = JSX(({ primary, secondary, children, onCite }: TextBlockProps) => {
+export const TextBlock = JSX<TextBlockProps>(({ primary, secondary, onCite, children }) => {
   return (
     <section className="text-block__root">
       {primary && (
