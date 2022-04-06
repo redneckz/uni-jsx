@@ -39,9 +39,9 @@ TODO
 
 Common limitations:
 
-- NO lifecycle, just JSX
-- NO common hooks (React hooks and Vue Composition API require a lot of effort to generalize)
-- Events are streamed up as-is (avoid usage of normalized Event fields specific to React or Vue)
+- NO lifecycle support, just JSX
+- NO common hooks (`React` hooks and `Vue Composition API` require a lot of effort to generalize)
+- Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
 
 React:
 
