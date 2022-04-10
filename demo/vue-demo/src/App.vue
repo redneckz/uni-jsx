@@ -1,24 +1,22 @@
 <template>
   <h1>Vue with unified components</h1>
-  <h2>TextBlock</h2>
   <hr />
-  <text-block ref="text" :primary="primary" :secondary="secondary" @cite="debugEvent">
+  <text-block ref="text" :primary="primary" :secondary="secondary" :dark="true" @cite="debugEvent">
     <cite>http://www.asimovonline.com</cite>
   </text-block>
-  <h2>PrimaryButton</h2>
+  <primary-button @click="debugEvent">Click me</primary-button>
   <hr />
-  <primary-button @click="debugEvent">
-    Click me
-  </primary-button>
+  <test-page />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { TextBlock, PrimaryButton } from '@demo/ui-kit';
+import { TestPage, TextBlock, PrimaryButton } from '@demo/ui-kit';
 
 export default defineComponent({
   name: 'App',
   components: {
+    TestPage,
     TextBlock,
     PrimaryButton
   },

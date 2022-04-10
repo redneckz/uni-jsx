@@ -8,5 +8,8 @@ export const JSX = Component => {
     const children = rawChildren || (defaultSlot && defaultSlot());
     return Component(Object.assign(props, children && { children }), context);
   };
+
+  Component._tmpl.inheritAttrs = false; // Vue
+
   return Component._tmpl;
 };

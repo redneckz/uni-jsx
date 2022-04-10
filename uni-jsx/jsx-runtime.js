@@ -4,7 +4,12 @@ export const setup = (_jsx, _jsxs) => {
 };
 
 setup.vue = _ => {
-  const adapter = (type, { children, ...props } = {}) => _(type, props, children);
+  const adapter = (type, { children, dangerouslySetInnerHTML, ...rest } = {}) => {
+    const props = Object.assign({}, rest, dangerouslySetInnerHTML ? { innerHTML: dangerouslySetInnerHTML.__html } : {});
+    const isComponent = typeof type !== 'string';
+    const lazyChildren = isComponent ? () => children : children; // Vue optimization
+    return _(type, props, lazyChildren);
+  };
   setup(adapter);
 };
 

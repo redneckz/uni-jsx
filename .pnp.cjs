@@ -54,7 +54,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["lint-staged", "npm:12.3.7"],\
-            ["prettier", "npm:2.6.2"]\
+            ["prettier", "npm:2.6.2"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -11451,7 +11452,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["uni-jsx", "workspace:."],\
             ["lint-staged", "npm:12.3.7"],\
-            ["prettier", "npm:2.6.2"]\
+            ["prettier", "npm:2.6.2"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
           ],\
           "linkType": "SOFT"\
         }]\

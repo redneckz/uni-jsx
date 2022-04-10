@@ -1,5 +1,5 @@
-import { useRef, useEffect, useCallback } from 'react';
-import { TextBlock, PrimaryButton } from '@demo/ui-kit';
+import { TestPage, PrimaryButton, TextBlock } from '@demo/ui-kit';
+import { useCallback } from 'react';
 
 export function App() {
   const primary = 'Айзек Азимов';
@@ -8,11 +8,6 @@ export function App() {
   сам не скажет: «Я могу творить, и я буду творить, хотите
   вы этого или нет».`;
 
-  const ref = useRef();
-  useEffect(() => {
-    console.log(ref.current);
-  }, []);
-
   const debugEvent = useCallback((_: unknown) => {
     console.log(_);
   }, []);
@@ -20,14 +15,13 @@ export function App() {
   return (
     <>
       <h1>React with unified components</h1>
-      <h2>TextBlock</h2>
       <hr />
-      <TextBlock primary={primary} secondary={secondary} onCite={debugEvent}>
+      <TextBlock primary={primary} secondary={secondary} dark onCite={debugEvent}>
         <cite>http://www.asimovonline.com</cite>
       </TextBlock>
-      <h2>PrimaryButton</h2>
-      <hr />
       <PrimaryButton onClick={debugEvent}>Click me</PrimaryButton>
+      <hr />
+      <TestPage />
     </>
   );
 }

@@ -8366,6 +8366,7 @@ __metadata:
   dependencies:
     lint-staged: ^12.3.7
     prettier: ^2.6.2
+    typescript: ^4.6.3
   languageName: unknown
   linkType: soft
 
