@@ -1473,6 +1473,9 @@ __metadata:
 "@redneckz/uni-jsx@workspace:*, @redneckz/uni-jsx@workspace:uni-jsx":
   version: 0.0.0-use.local
   resolution: "@redneckz/uni-jsx@workspace:uni-jsx"
+  dependencies:
+    rimraf: ^3.0.2
+    typescript: ^4.6.3
   languageName: unknown
   linkType: soft
 
