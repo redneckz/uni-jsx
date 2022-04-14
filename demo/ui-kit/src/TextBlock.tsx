@@ -2,7 +2,7 @@ import { JSX } from '@redneckz/uni-jsx';
 
 export interface TextBlockProps {
   primary?: string;
-  secondary?: string;
+  secondary?: string[];
   dark?: boolean;
   onCite?: (ev: PointerEvent) => void;
 }
@@ -21,11 +21,7 @@ export const TextBlock = JSX<TextBlockProps>(props => {
           <em>{primary}</em>
         </p>
       )}
-      {secondary && (
-        <p>
-          <q className="text-block__secondary">{secondary}</q>
-        </p>
-      )}
+      {secondary && <pre className="text-block__secondary">{secondary?.join('\n')}</pre>}
       {children && <p>{children}</p>}
     </section>
   );

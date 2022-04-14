@@ -4,10 +4,11 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "strict": true,
+    "alwaysStrict": false,
     "allowJs": true,
-    "declaration": true,
-    "outDir": "./lib"
+    "declaration": false,
+    "outDir": "./"
   },
-  "include": ["index.js"],
+  "include": ["./src/**/*.js", "./src/**/*.ts"],
   "exclude": ["node_modules"]
 }
