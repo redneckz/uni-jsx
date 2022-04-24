@@ -7,8 +7,8 @@
     "alwaysStrict": false,
     "allowJs": true,
     "declaration": false,
-    "outDir": "./"
+    "outDir": "./dist"
   },
-  "include": ["./src/**/*.js", "./src/**/*.ts"],
+  "include": ["./*.js"],
   "exclude": ["node_modules"]
 }
