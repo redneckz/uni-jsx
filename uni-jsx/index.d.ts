@@ -8,7 +8,7 @@ interface JSXSetup {
 
 export declare const setup: JSXSetup;
 
-type PropsWithChildren<Props, VNode> = Props & { children?: VNode };
+type PropsWithChildren<Props, VNode> = Props & { key?: string; children?: VNode };
 
 export declare const JSX: <Props = {}, Context = any, VNode = any>(
   Component: (props: PropsWithChildren<Props, VNode>, context?: Context) => VNode
