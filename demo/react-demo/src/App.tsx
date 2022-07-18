@@ -1,5 +1,6 @@
-import { TestPage, PrimaryButton, TextBlock } from '@demo/ui-kit';
+import { TestPage, PrimaryButton, TextBlock, Counter } from '@demo/ui-kit';
 import { useCallback } from 'react';
+import { contentPageContext } from './contentPageContext';
 
 export function App() {
   const primary = 'Айзек Азимов';
@@ -22,6 +23,8 @@ export function App() {
         <cite>http://www.asimovonline.com</cite>
       </TextBlock>
       <PrimaryButton onClick={debugEvent}>Click me</PrimaryButton>
+      <hr />
+      <Counter context={contentPageContext} />
       <hr />
       <TestPage />
     </>

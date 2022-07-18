@@ -6,25 +6,30 @@
   </text-block>
   <primary-button @click="debugEvent">Click me</primary-button>
   <hr />
+  <counter :context="contentPageContext" />
+  <hr />
   <test-page />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { TestPage, TextBlock, PrimaryButton } from '@demo/ui-kit';
+import { TestPage, TextBlock, PrimaryButton, Counter } from '@demo/ui-kit';
+import { contentPageContext } from './contentPageContext';
 
 export default defineComponent({
   name: 'App',
   components: {
     TestPage,
     TextBlock,
-    PrimaryButton
+    PrimaryButton,
+    Counter
   },
   mounted() {
     console.log(this.$refs.text);
   },
   data() {
     return {
+      contentPageContext,
       primary: 'Айзек Азимов',
       secondary: [
         'Нельзя сказать человеку: «Ты можешь творить.',
