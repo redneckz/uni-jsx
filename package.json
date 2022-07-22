@@ -12,23 +12,15 @@
   "bugs": {
     "url": "https://github.com/redneckz/uni-jsx/issues"
   },
-  "packageManager": "yarn@3.2.0",
   "workspaces": [
-    "uni-jsx",
-    "demo/*"
+    "./uni-jsx",
+    "./demo/*"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach --topological --all run build",
-    "start:vue": "yarn demo/vue-demo start",
-    "start:react": "yarn demo/react-demo start",
-    "start:next": "yarn demo/next-demo dev"
-  },
-  "devDependencies": {
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.2",
-    "typescript": "^4.6.3"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,md}": "yarn prettier --write"
+    "build": "npm run build --ws",
+    "start:vue": "npm run start -w @demo/vue-demo",
+    "start:react": "npm run start -w @demo/react-demo",
+    "start:next": "npm run dev -w @demo/next-demo",
+    "start:nuxt": "npm run dev -w @demo/nuxt-demo"
   }
 }

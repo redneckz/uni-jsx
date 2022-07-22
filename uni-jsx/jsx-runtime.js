@@ -4,7 +4,6 @@ export const setup = (_jsx, _jsxs) => {
 };
 
 setup.vue = _ => {
-  setup.isVue = true;
   const adapter = (type, rawProps = {}) => {
     const { children, dangerouslySetInnerHTML, ...rest } = rawProps;
     const props = Object.assign({}, rest, dangerouslySetInnerHTML ? { innerHTML: dangerouslySetInnerHTML.__html } : {});

@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>React with unified components</h1>
+      <h1>Next.js with unified components</h1>
       <hr />
       <TextBlock primary={primary} secondary={secondary} dark onCite={debugEvent}>
         <cite>http://www.asimovonline.com</cite>

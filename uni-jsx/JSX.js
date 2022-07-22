@@ -1,9 +1,11 @@
-import { setup } from './jsx-runtime.js';
-
 export const JSX = (Component, propsList) => {
   if (Component._tmpl) return Component._tmpl;
 
-  Component._tmpl = setup.isVue ? VueTmpl(Component, propsList) : ReactTmpl(Component);
+  if (globalThis.__isReact) {
+    Component._tmpl = ReactTmpl(Component);
+  } else {
+    Component._tmpl = VueTmpl(Component, propsList);
+  }
 
   return Component._tmpl;
 };

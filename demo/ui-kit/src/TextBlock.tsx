@@ -15,7 +15,7 @@ export const TextBlock = JSX<TextBlockProps>(
   props => () => {
     const style = Object.assign({}, baseStyle, props.dark ? { color: '#CCC', backgroundColor: '#777' } : {});
     return (
-      <section className="text-block__root" style={style} onClick={props.onCite}>
+      <section className="text-block__root" style={style} onClick={props.onCite as any}>
         {props.primary && (
           <p className="text-block__primary">
             <em>{props.primary}</em>
