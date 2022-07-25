@@ -43,23 +43,33 @@ import { JSX } from '@redneckz/uni-jsx';
 
 export interface TextBlockProps {
   primary?: string;
+  secondary?: string[];
+  dark?: boolean;
   onCite?: (ev: PointerEvent) => void;
 }
 
-export const TextBlock = JSX<TextBlockProps>(({ primary, children, onCite }) => {
-  return (
-    <section className="text-block__root">
-      {primary && (
-        <p className="text-block__primary">
-          <em>{primary}</em>
-        </p>
-      )}
-      {children && (
-        <p><a href="#" onClick={onCite}>{children}</a></p>
-      )}
-    </section>
-  );
-});
+const baseStyle = {
+  cursor: 'pointer'
+};
+
+export const TextBlock = JSX<TextBlockProps>(
+  props => () => {
+    const style = Object.assign({}, baseStyle, props.dark ? { color: '#CCC', backgroundColor: '#777' } : {});
+    return (
+      <section className="text-block__root" style={style} onClick={props.onCite as any}>
+        {props.primary && (
+          <p className="text-block__primary">
+            <em>{props.primary}</em>
+          </p>
+        )}
+        {props.secondary && <pre className="text-block__secondary">{props.secondary?.join('\n')}</pre>}
+        {props.children && <p>{props.children}</p>}
+      </section>
+    );
+  },
+  ['dark', 'primary', 'secondary', 'onCite']
+);
+
 ```
 
 ## [Vue] How to use universal components
@@ -102,6 +112,25 @@ export default defineComponent({
 
 ## [React] How to use universal components
 
+In index.html file set ```globalThis.__UNI_REACT__``` as true 
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    globalThis.__UNI_REACT__ = true;
+  </script>
+</html>
+
+
+```
+
 ```tsx
 import runtime from 'react/jsx-runtime';
 import { createRoot } from 'react-dom/client';
@@ -135,6 +164,88 @@ export function App() {
 }
 ```
 
+## [Next.js] How to use universal components
+
+```tsx
+import { setup } from '@redneckz/uni-jsx';
+import type { AppProps } from 'next/app';
+import runtime from 'react/jsx-runtime';
+
+const { jsx, jsxs } = runtime as any;
+// @ts-ignore;
+globalThis.__UNI_REACT__ = true;
+setup(jsx, jsxs);
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+
+```
+
+```tsx
+import { useCallback } from 'react';
+import { TextBlock } from '@demo/ui-kit';
+
+export function App() {
+  const debugEvent = useCallback((_: unknown) => {
+    console.log(_);
+  }, []);
+  return (
+    <>
+      <h1>Next with unified components</h1>
+      <TextBlock primary="Primary text..." onCite={debugEvent}>
+        <cite>http://www.asimovonline.com</cite>
+      </TextBlock>
+    </>
+  );
+}
+```
+
+
+## [Nuxt] How to use universal components
+
+```ts
+import { setup } from '@redneckz/uni-jsx';
+import { h } from 'vue';
+import App from './main.vue';
+
+setup.vue(h);
+
+export default defineComponent({
+  setup() {
+    return () => h(App);
+  }
+});
+
+```
+
+```vue
+<template>
+  <h1>Nuxt with unified components</h1>
+  <text-block primary="Primary text..." @cite="debugEvent">
+    <cite>http://www.asimovonline.com</cite>
+  </text-block>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { TextBlock } from '@demo/ui-kit';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    TextBlock
+  },
+  methods: {
+    debugEvent(event: PointerEvent) {
+      console.log(event);
+    }
+  }
+});
+</script>
+```
 ## How it works
 
 TODO

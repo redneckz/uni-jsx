@@ -8,6 +8,8 @@ Unification layer between `React` and `Vue`
 - [demo/ui-kit](./demo/ui-kit/README.md) package with an example of unified components
 - [demo/vue-demo](./demo/vue-demo/README.md) `Vue 3` app which uses components from `demo/ui-kit`
 - [demo/react-demo](./demo/react-demo/README.md) `React` app which uses components from `demo/ui-kit`
+- [demo/nuxt-demo](./demo/nuxt-demo/README.md) `Nuxt 3` app which uses components from `demo/ui-kit`
+- [demo/next-demo](./demo/next-demo/README.md) `Next.js` app which uses components from `demo/ui-kit`
 
 ## How-to demo
 
