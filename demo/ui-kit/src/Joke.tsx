@@ -14,7 +14,7 @@ export const Joke = JSX<JokeProps>(
     return () => (
       <section>
         <div>Random Chuck Norris joke:</div>
-        <div>{chuckJoke.data.value?.value}</div>
+        <div>{chuckJoke.data?.value?.value}</div>
       </section>
     );
   },

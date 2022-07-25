@@ -1,4 +1,4 @@
-import { TestPage, PrimaryButton, TextBlock, Counter } from '@demo/ui-kit';
+import { TestPage, PrimaryButton, TextBlock, Counter, Joke } from '@demo/ui-kit';
 import { useCallback } from 'react';
 import { contentPageContext } from './contentPageContext/contentPageContext';
 
@@ -25,6 +25,8 @@ export function App() {
       <PrimaryButton onClick={debugEvent}>Click me</PrimaryButton>
       <hr />
       <Counter context={contentPageContext} />
+      <hr />
+      <Joke context={contentPageContext} />
       <hr />
       <TestPage />
     </>
