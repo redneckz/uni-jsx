@@ -8,12 +8,14 @@
   <hr />
   <counter :context="contentPageContext" />
   <hr />
+  <joke :context="contentPageContext" />
+  <hr />
   <test-page />
 </template>
 
 <script lang="ts">
+import { Counter, Joke, PrimaryButton, TestPage, TextBlock } from '@demo/ui-kit';
 import { defineComponent } from 'vue';
-import { TestPage, TextBlock, PrimaryButton, Counter } from '@demo/ui-kit';
 import { contentPageContext } from './contentPageContext/contentPageContext';
 
 export default defineComponent({
@@ -22,7 +24,8 @@ export default defineComponent({
     TestPage,
     TextBlock,
     PrimaryButton,
-    Counter
+    Counter,
+    Joke
   },
   mounted() {
     console.log(this.$refs.text);
