@@ -1,4 +1,4 @@
-import { useState } from '../hooks/useState';
+import { useState } from './useState';
 
 export const contentPageContext = {
   useState: useState

@@ -3,20 +3,20 @@
     <h1>Nuxt with unified components</h1>
     <hr />
     <text-block ref="text" :primary="primary" :secondary="secondary" :dark="true" @cite="debugEvent">
-    <cite>http://www.asimovonline.com</cite>
-  </text-block>
-  <primary-button @click="debugEvent">Click me</primary-button>
-  <hr />
-  <counter :context="contentPageContext" />
-  <hr />
-  <test-page />
+      <cite>http://www.asimovonline.com</cite>
+    </text-block>
+    <primary-button @click="debugEvent">Click me</primary-button>
+    <hr />
+    <counter :context="contentPageContext" />
+    <hr />
+    <test-page />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { TestPage, TextBlock, PrimaryButton, Counter } from '@demo/ui-kit';
-import { contentPageContext } from '../contentPageContext';
+import { contentPageContext } from '../contentPageContext/contentPageContext';
 
 export default defineComponent({
   name: 'App',

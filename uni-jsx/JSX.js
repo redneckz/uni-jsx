@@ -1,7 +1,7 @@
 export const JSX = (Component, propsList) => {
   if (Component._tmpl) return Component._tmpl;
 
-  if (globalThis.__isReact) {
+  if (globalThis.__UNI_REACT__) {
     Component._tmpl = ReactTmpl(Component);
   } else {
     Component._tmpl = VueTmpl(Component, propsList);

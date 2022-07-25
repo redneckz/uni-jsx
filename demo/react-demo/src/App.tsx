@@ -1,6 +1,6 @@
 import { TestPage, PrimaryButton, TextBlock, Counter } from '@demo/ui-kit';
 import { useCallback } from 'react';
-import { contentPageContext } from './contentPageContext';
+import { contentPageContext } from './contentPageContext/contentPageContext';
 
 export function App() {
   const primary = 'Айзек Азимов';

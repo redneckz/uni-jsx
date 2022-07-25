@@ -4,7 +4,7 @@ import runtime from 'react/jsx-runtime';
 
 const { jsx, jsxs } = runtime as any;
 // @ts-ignore;
-globalThis.__isReact = true;
+globalThis.__UNI_REACT__ = true;
 setup(jsx, jsxs);
 
 function MyApp({ Component, pageProps }: AppProps) {

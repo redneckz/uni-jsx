@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { TestPage, TextBlock, PrimaryButton, Counter } from '@demo/ui-kit';
-import { contentPageContext } from './contentPageContext';
+import { contentPageContext } from './contentPageContext/contentPageContext';
 
 export default defineComponent({
   name: 'App',

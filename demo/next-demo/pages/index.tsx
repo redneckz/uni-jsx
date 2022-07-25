@@ -2,7 +2,7 @@ import { Counter, PrimaryButton, TestPage, TextBlock } from '@demo/ui-kit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback } from 'react';
-import { contentPageContext } from '../context/contentPageContext';
+import { contentPageContext } from '../contentPageContext/contentPageContext';
 
 const Home: NextPage = () => {
   const primary = 'Айзек Азимов';
