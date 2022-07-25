@@ -1,5 +1,7 @@
 import { ref } from 'vue';
+import type { ContentPageContext } from '@demo/ui-kit';
 
-export const contentPageContext = {
-  useState: ref
+export const contentPageContext: ContentPageContext = {
+  useState: ref,
+  useAsyncData
 };
