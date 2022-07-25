@@ -28,7 +28,7 @@ type ChuckJoke = {
 const useChuckJoke = (useAsyncData: AsyncDataHook) => {
   const { data, error } = useAsyncData(chuckJokeUrl, fethcChuckJoke);
 
-  return { data: data || { value: {} }, error: error || { value: {} } };
+  return { data, error };
 };
 
 const chuckJokeUrl = 'https://api.chucknorris.io/jokes/random';
