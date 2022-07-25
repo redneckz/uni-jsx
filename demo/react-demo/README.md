@@ -3,8 +3,8 @@
 ## How-to
 
 ```shell
-$ yarn # install deps
-$ yarn start # http://localhost:8080
+$ npm i # install deps
+$ npm run start # http://localhost:8080
 ```
 
 ## Description

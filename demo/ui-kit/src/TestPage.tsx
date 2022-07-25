@@ -10,8 +10,7 @@ const blocks = [
   {
     key: '72672775-55fb-4e29-b4e5-3979876a2353',
     dark: false,
-    primary:
-      'Dolore eiusmod ipsum Lorem enim labore quis et velit culpa sunt elit aute qui.',
+    primary: 'Dolore eiusmod ipsum Lorem enim labore quis et velit culpa sunt elit aute qui.',
     secondary: [
       'Voluptate occaecat aliqua magna sunt commodo enim duis enim incididunt. Cupidatat ut proident mollit velit proident tempor.'
     ],
@@ -20,11 +19,8 @@ const blocks = [
   {
     key: '1b9faa8f-2452-4987-b17f-e9edfd49580d',
     dark: true,
-    primary:
-      'Sit cillum exercitation et anim nisi mollit nulla magna anim exercitation nulla veniam.',
-    secondary: [
-      'Pariatur nisi est exercitation nisi irure officia anim excepteur magna.'
-    ],
+    primary: 'Sit cillum exercitation et anim nisi mollit nulla magna anim exercitation nulla veniam.',
+    secondary: ['Pariatur nisi est exercitation nisi irure officia anim excepteur magna.'],
     link: 'parkerpate@corecom.com'
   },
   {
@@ -52,9 +48,7 @@ const blocks = [
     dark: false,
     primary:
       'Sunt nisi consectetur aliquip proident sit eu. Laboris qui do exercitation aliquip in incididunt laborum officia pariatur nisi...',
-    secondary: [
-      'Non sint non magna commodo laboris. Ipsum reprehenderit exercitation consectetur mollit.'
-    ],
+    secondary: ['Non sint non magna commodo laboris. Ipsum reprehenderit exercitation consectetur mollit.'],
     link: 'parkerpate@corecom.com'
   },
   {
@@ -72,9 +66,7 @@ const blocks = [
     dark: false,
     primary:
       'Laboris elit fugiat ipsum ea in tempor adipisicing eiusmod. Nisi ut occaecat mollit ut ad quis pariatur est amet mollit sint.',
-    secondary: [
-      'Cupidatat culpa anim qui non ipsum incididunt tempor laborum sunt laborum.'
-    ],
+    secondary: ['Cupidatat culpa anim qui non ipsum incididunt tempor laborum sunt laborum.'],
     link: 'parkerpate@corecom.com'
   }
 ];
@@ -88,7 +80,7 @@ export const TestPage = JSX(() => {
       Last Updated : 04/09/2022 17:46:14
     </p>
   `;
-  return (
+  return () => (
     <section>
       {blocks.map(({ link, ...props }) => (
         <TextBlock {...props} onCite={debugEvent}>

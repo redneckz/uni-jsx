@@ -14,21 +14,32 @@ Unification layer between `React` and `Vue`
 Install and build:
 
 ```shell
-$ corepack enable # https://yarnpkg.com/getting-started/install
-$ yarn # install deps
-$ yarn build
+$ npm i # install deps
+$ npm run build
 ```
 
 React demo:
 
 ```shell
-$ yarn start:react # http://localhost:8080
+$ npm run start:react # http://localhost:8080
 ```
 
 Vue demo:
 
 ```shell
-$ yarn start:vue # http://localhost:8090
+$ npm run start:vue # http://localhost:8090
+```
+
+Next demo:
+
+```shell
+$ npm run start:next # http://localhost:8070
+```
+
+Nuxt demo:
+
+```shell
+$ npm run start:nuxt # http://localhost:8060
 ```
 
 ## How it works

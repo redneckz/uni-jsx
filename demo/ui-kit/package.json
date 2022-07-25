@@ -1,6 +1,6 @@
 {
   "name": "@demo/ui-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "license": "MIT",
   "module": "./lib/index.js",
@@ -9,10 +9,10 @@
     "build": "rimraf ./lib && tsc --build --verbose"
   },
   "dependencies": {
-    "@redneckz/uni-jsx": "workspace:*"
+    "@redneckz/uni-jsx": "*"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
+    "typescript": "4.6.3"
   }
 }

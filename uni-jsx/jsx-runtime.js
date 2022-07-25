@@ -4,10 +4,11 @@ export const setup = (_jsx, _jsxs) => {
 };
 
 setup.vue = _ => {
-  const adapter = (type, { children, dangerouslySetInnerHTML, ...rest } = {}) => {
+  const adapter = (type, rawProps = {}) => {
+    const { children, dangerouslySetInnerHTML, ...rest } = rawProps;
     const props = Object.assign({}, rest, dangerouslySetInnerHTML ? { innerHTML: dangerouslySetInnerHTML.__html } : {});
     const isComponent = typeof type !== 'string';
-    const lazyChildren = isComponent ? () => children : children; // Vue optimization
+    const lazyChildren = isComponent && typeof children !== 'function' ? () => children : children; // Vue optimization
     return _(type, props, lazyChildren);
   };
   setup(adapter);

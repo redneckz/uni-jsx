@@ -1,10 +1,10 @@
-# [Vue] Demo of unified JSX
+# [Next.js] Demo of unified JSX
 
 ## How-to
 
 ```shell
 $ npm i # install deps
-$ npm run start # http://localhost:8090
+$ npm run dev # http://localhost:8070
 ```
 
 ## Description
