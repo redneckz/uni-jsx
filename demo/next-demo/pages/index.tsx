@@ -1,4 +1,4 @@
-import { Counter, Joke, PrimaryButton, TestPage, TextBlock } from '@demo/ui-kit';
+import { Counter, Joke, PrimaryButton, TestPage, TextBlock, LinkButton } from '@demo/ui-kit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback } from 'react';
@@ -35,6 +35,8 @@ const Home: NextPage = () => {
       <Counter context={contentPageContext} />
       <hr />
       <Joke context={contentPageContext} />
+      <hr />
+      <LinkButton context={contentPageContext}>To test page</LinkButton>
       <hr />
       <TestPage />
     </>
