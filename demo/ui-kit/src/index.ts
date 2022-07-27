@@ -1,4 +1,4 @@
-export type { ContentPageContext, UseState } from './ContentPageContext';
+export type { ContentPageContext, UseState, AsyncDataHook } from './ContentPageContext';
 export { Counter } from './Counter';
 export { Joke } from './Joke';
 export { PrimaryButton } from './PrimaryButton';

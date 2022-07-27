@@ -1,9 +1,10 @@
+import { AsyncDataHook } from '@demo/ui-kit';
 import useSwr from 'swr';
 
-export function useAsyncData<Data, Error = any>(key: string, fetcher: () => Promise<Data>) {
+export const useAsyncData: AsyncDataHook = (key, fetcher) => {
   const res = useSwr(key, fetcher);
   return {
-    data: { value: res.data as Data },
-    error: { value: res.error as Error }
+    data: { value: res.data },
+    error: { value: res.error }
   };
-}
+};

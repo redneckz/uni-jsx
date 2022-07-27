@@ -1,16 +1,8 @@
 import { ContentPageContext } from '@demo/ui-kit';
-import { useEffect, useState as useStateReact } from 'react';
 import { useState } from './useState';
+import { useAsyncData } from './useAsyncData';
 
 export const contentPageContext: ContentPageContext = {
-  useState: useState,
-  useAsyncData: (key, fetcher) => {
-    const [data, setData] = useStateReact();
-    useEffect(() => {
-      fetcher().then((_: any) => {
-        setData(_);
-      });
-    }, [key, fetcher]);
-    return { data: { value: data } };
-  }
+  useState,
+  useAsyncData
 };
