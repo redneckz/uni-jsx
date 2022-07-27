@@ -1,4 +1,4 @@
-import { AsyncDataHook } from '@demo/ui-kit';
+import type { AsyncDataHook } from '@demo/ui-kit';
 import useSwr from 'swr';
 
 export const useAsyncData: AsyncDataHook = (key, fetcher) => {

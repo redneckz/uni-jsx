@@ -1,4 +1,4 @@
-import { UseState } from '@demo/ui-kit';
+import type { UseState } from '@demo/ui-kit';
 import { useState as useStateReact } from 'react';
 
 export const useState: UseState = initalState => {

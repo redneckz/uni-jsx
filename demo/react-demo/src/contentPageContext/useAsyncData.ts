@@ -1,4 +1,4 @@
-import { AsyncDataHook } from '@demo/ui-kit';
+import type { AsyncDataHook } from '@demo/ui-kit';
 import { useEffect, useState as useStateReact } from 'react';
 
 export const useAsyncData: AsyncDataHook = (key, fetcher) => {

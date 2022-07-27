@@ -1,4 +1,4 @@
-import { AsyncDataHook } from '@demo/ui-kit';
+import type { AsyncDataHook } from '@demo/ui-kit';
 import { ref } from 'vue';
 
 export const useAsyncData: AsyncDataHook = (key, fetcher) => {
