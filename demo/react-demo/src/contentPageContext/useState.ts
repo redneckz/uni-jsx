@@ -1,6 +1,7 @@
+import type { UseState } from '@demo/ui-kit';
 import { useState as useStateReact } from 'react';
 
-export const useState = <State>(initalState: State) => {
+export const useState: UseState = initalState => {
   const [value, setValue] = useStateReact(initalState);
 
   return {
