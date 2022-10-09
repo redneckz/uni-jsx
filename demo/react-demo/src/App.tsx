@@ -24,7 +24,7 @@ export function App() {
       </TextBlock>
       <PrimaryButton onClick={debugEvent}>Click me</PrimaryButton>
       <hr />
-      <Counter context={contentPageContext} />
+      <Counter />
       <hr />
       <Joke context={contentPageContext} />
       <hr />

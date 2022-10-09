@@ -6,7 +6,7 @@
   </text-block>
   <primary-button @click="debugEvent">Click me</primary-button>
   <hr />
-  <counter :context="contentPageContext" />
+  <counter />
   <hr />
   <joke :context="contentPageContext" />
   <hr />

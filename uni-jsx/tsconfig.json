@@ -2,13 +2,15 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
+    "jsx": "preserve",
     "moduleResolution": "node",
     "strict": true,
     "alwaysStrict": false,
     "allowJs": true,
-    "declaration": false,
+    "declaration": true,
+    "rootDir": "./src",
     "outDir": "./dist"
   },
-  "include": ["./*.js"],
+  "include": ["./src/**/*.js", "./src/**/*.ts"],
   "exclude": ["node_modules"]
 }

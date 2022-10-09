@@ -80,7 +80,7 @@ export const TestPage = JSX(() => {
       Last Updated : 04/09/2022 17:46:14
     </p>
   `;
-  return () => (
+  return (
     <section>
       {blocks.map(({ link, ...props }) => (
         <TextBlock {...props} onCite={debugEvent}>

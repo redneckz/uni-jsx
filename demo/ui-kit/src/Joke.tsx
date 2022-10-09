@@ -1,39 +1,24 @@
 import { JSX } from '@redneckz/uni-jsx';
-import { AsyncDataHook, ContentPageContext } from './ContentPageContext';
+import { useAsyncData } from '@redneckz/uni-jsx/lib/hooks/useAsyncData';
 
-export interface JokeProps {
-  context: ContentPageContext;
-}
-
-export const Joke = JSX<JokeProps>(
-  props => {
-    const { context } = props;
-
-    const chuckJoke = useChuckJoke(context.useAsyncData);
-
-    return () => (
-      <section>
-        <div>Random Chuck Norris joke:</div>
-        <div>{chuckJoke.data?.value?.value}</div>
-      </section>
-    );
-  },
-  ['context']
-);
+const CHUCK_JOKE_URL = 'https://api.chucknorris.io/jokes/random';
 
 type ChuckJoke = {
   value?: string;
 };
 
-const useChuckJoke = (useAsyncData: AsyncDataHook) => {
-  const { data, error } = useAsyncData(chuckJokeUrl, fethcChuckJoke);
+export const Joke = JSX(() => {
+  const { data: chuckJoke } = useAsyncData<ChuckJoke>(CHUCK_JOKE_URL, fetchJSON);
 
-  return { data, error };
-};
+  return (
+    <section>
+      <div>Random Chuck Norris joke:</div>
+      <div>{chuckJoke?.value}</div>
+    </section>
+  );
+});
 
-const chuckJokeUrl = 'https://api.chucknorris.io/jokes/random';
-
-const fethcChuckJoke = async (): Promise<ChuckJoke> => {
-  const response = await fetch(chuckJokeUrl);
+async function fetchJSON<D>(url: string): Promise<D> {
+  const response = await fetch(url);
   return await response.json();
-};
+}

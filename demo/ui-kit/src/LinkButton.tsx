@@ -1,4 +1,5 @@
 import { JSX } from '@redneckz/uni-jsx';
+import { useCallback } from '@redneckz/uni-jsx/lib/hooks';
 import { ContentPageContext } from './ContentPageContext';
 
 export interface LinkButtonProps {
@@ -6,22 +7,19 @@ export interface LinkButtonProps {
   url?: string;
 }
 
-export const LinkButton = JSX<LinkButtonProps>(
-  props => {
-    const { context, url } = props;
+export const LinkButton = JSX<LinkButtonProps>(props => {
+  const { context, url } = props;
 
-    const router = context.useRouter();
-    console.log(router);
+  const router = context.useRouter();
+  console.log(router);
 
-    const handleClick = () => {
-      router.push(url || 'test');
-    };
+  const handleClick = useCallback(() => {
+    router.push(url || 'test');
+  }, [url]);
 
-    return () => (
-      <button className="button" onClick={handleClick}>
-        {props.children}
-      </button>
-    );
-  },
-  ['context', 'url']
-);
+  return (
+    <button className="button" onClick={handleClick}>
+      {props.children}
+    </button>
+  );
+});

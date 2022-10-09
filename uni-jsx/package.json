@@ -1,28 +1,68 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
+  "module": "./lib/index.js",
   "main": "./dist/index.js",
   "types": "./index.d.ts",
   "exports": {
+    "./jsx-runtime": "./jsx-runtime.js",
     ".": {
-      "import": "./index.js",
+      "import": "./lib/index.js",
       "require": "./dist/index.js",
-      "types": "./index.d.ts"
+      "types": "./lib/index.d.ts"
     },
-    "./jsx-runtime": {
-      "import": "./jsx-runtime.js",
-      "require": "./dist/jsx-runtime.js",
-      "types": "./index.d.ts"
+    "./lib/setup.vue": {
+      "import": "./lib/setup.vue.js",
+      "require": "./dist/setup.vue.js",
+      "types": "./lib/setup.vue.d.ts"
+    },
+    "./lib/setup.react": {
+      "import": "./lib/setup.react.js",
+      "require": "./dist/setup.react.js",
+      "types": "./lib/setup.react.d.ts"
+    },
+    "./lib/hooks": {
+      "import": "./lib/hooks/index.js",
+      "require": "./dist/hooks/index.js",
+      "types": "./lib/hooks/index.d.ts"
+    },
+    "./lib/hooks/*": {
+      "import": "./lib/hooks/*.js",
+      "require": "./dist/hooks/*.js",
+      "types": "./lib/hooks/*.d.ts"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc --noImplicitUseStrict"
+    "build": "npm run build:commonjs && npm run build:lib",
+    "postbuild": "npm run size",
+    "build:commonjs": "rimraf ./dist && tsc --noImplicitUseStrict",
+    "build:lib": "rimraf ./lib && tsc --module esnext --noImplicitUseStrict --outDir ./lib",
+    "size": "size-limit"
   },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
-  }
+    "size-limit": "^8.1.0",
+    "typescript": "4.7.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "size-limit": [
+    {
+      "path": "lib/**/*.js"
+    }
+  ]
 }

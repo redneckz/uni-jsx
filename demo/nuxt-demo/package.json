@@ -12,6 +12,6 @@
     "@redneckz/uni-jsx": "*"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.6"
+    "nuxt": "3.0.0-rc.11"
   }
 }

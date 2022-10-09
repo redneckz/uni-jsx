@@ -1,28 +1,19 @@
 import { JSX } from '@redneckz/uni-jsx';
-import { ContentPageContext } from './ContentPageContext';
+import { useCallback, useState } from '@redneckz/uni-jsx/lib/hooks';
 
-export interface CounterProps {
-  context: ContentPageContext;
-}
+export const Counter = JSX(() => {
+  const [count, setCount] = useState(0);
 
-export const Counter = JSX<CounterProps>(
-  props => {
-    const { context } = props;
+  const handleClick = useCallback(() => {
+    setCount(_ => _ + 1);
+  }, []);
 
-    const count = context.useState(0);
-
-    function handleClick() {
-      count.value++;
-    }
-
-    return () => (
-      <section>
-        <div>{count.value}</div>
-        <button className="button" onClick={handleClick}>
-          Increment
-        </button>
-      </section>
-    );
-  },
-  ['context']
-);
+  return (
+    <section>
+      <div>{count}</div>
+      <button className="button" onClick={handleClick}>
+        Increment
+      </button>
+    </section>
+  );
+});

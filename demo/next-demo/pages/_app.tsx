@@ -1,11 +1,5 @@
-import { setup } from '@redneckz/uni-jsx';
+import '@redneckz/uni-jsx/lib/setup.react';
 import type { AppProps } from 'next/app';
-import runtime from 'react/jsx-runtime';
-
-const { jsx, jsxs } = runtime as any;
-// @ts-ignore;
-globalThis.__UNI_REACT__ = true;
-setup(jsx, jsxs);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
