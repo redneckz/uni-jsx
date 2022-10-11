@@ -24,7 +24,7 @@ export default defineComponent({
     TestPage,
     TextBlock,
     PrimaryButton,
-    LinkButton
+    LinkButton,
   },
   mounted() {
     console.log(this.$refs.text);
