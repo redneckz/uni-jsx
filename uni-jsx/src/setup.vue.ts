@@ -1,8 +1,8 @@
 // @ts-ignore
 import { h } from 'vue';
-import { setup } from './setup.js';
-import { setupHooks } from './hooks/index.js';
-import * as Hooks from './hooks/vue/index.js';
+import { setup } from './setup';
+import { setupHooks } from './hooks/index';
+import * as Hooks from './hooks/vue/index';
 
 setup((type: any, rawProps: any = {}) => {
   const { children, dangerouslySetInnerHTML, ...rest } = rawProps;

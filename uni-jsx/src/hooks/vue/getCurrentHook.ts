@@ -1,6 +1,6 @@
 // @ts-ignore
 import { getCurrentInstance } from 'vue';
-import { HookState } from './HookState.js';
+import { HookState } from './HookState';
 
 interface Hooks {
   uid: number;
@@ -46,7 +46,7 @@ function initHooks<S>(inst: ComponentInst, initialState?: S): Hooks {
   };
 
   queueMicrotask(() => {
-    // Last hook should reference the top one
+    // Last hook should reference the top one (cyclic uni-directional linked list)
     hooks.current.next = hooks.top;
   });
 

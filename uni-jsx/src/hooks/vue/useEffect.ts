@@ -1,7 +1,7 @@
 // @ts-ignore
 import { watchPostEffect } from 'vue';
-import { areDepsEqual } from './areDepsEqual.js';
-import { getCurrentHook } from './getCurrentHook.js';
+import { areDepsEqual } from './areDepsEqual';
+import { getCurrentHook } from './getCurrentHook';
 
 export const useEffect = updateEffectImp();
 export const useLayoutEffect = updateEffectImp(true);

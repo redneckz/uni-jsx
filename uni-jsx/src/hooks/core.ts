@@ -1,4 +1,4 @@
-import type * as Hooks from './vue/index.js';
+import type * as Hooks from './vue/index';
 
 let _hooks: typeof Hooks;
 

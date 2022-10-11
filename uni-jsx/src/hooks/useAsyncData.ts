@@ -1,4 +1,4 @@
-import { useEffect, useState } from './core.js';
+import { useEffect, useState } from './core';
 
 type Empty = null | undefined | false;
 type ArgumentsTuple = [any, ...unknown[]] | readonly [any, ...unknown[]];

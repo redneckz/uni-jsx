@@ -1,4 +1,4 @@
-import { getCurrentHook } from './getCurrentHook.js';
+import { getCurrentHook } from './getCurrentHook';
 
 interface RefState<T> {
   current: T | null;

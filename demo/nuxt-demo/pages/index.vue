@@ -7,10 +7,6 @@
     </text-block>
     <primary-button @click="debugEvent">Click me</primary-button>
     <hr />
-    <counter :context="contentPageContext" />
-    <hr />
-    <joke :context="contentPageContext" />
-    <hr />
     <link-button :context="contentPageContext">To test page</link-button>
     <hr />
     <test-page />
@@ -18,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { Counter, Joke, LinkButton, PrimaryButton, TestPage, TextBlock } from '@demo/ui-kit';
+import { LinkButton, PrimaryButton, TestPage, TextBlock } from '@demo/ui-kit';
 import { defineComponent } from 'vue';
 import { contentPageContext } from '../contentPageContext/contentPageContext';
 
@@ -28,9 +24,7 @@ export default defineComponent({
     TestPage,
     TextBlock,
     PrimaryButton,
-    Counter,
-    Joke,
-    LinkButton,
+    LinkButton
   },
   mounted() {
     console.log(this.$refs.text);

@@ -1,5 +1,5 @@
-import { areDepsEqual } from './areDepsEqual.js';
-import { getCurrentHook } from './getCurrentHook.js';
+import { areDepsEqual } from './areDepsEqual';
+import { getCurrentHook } from './getCurrentHook';
 
 interface CallbackState<F extends Function, Deps extends any[]> {
   callback: F;

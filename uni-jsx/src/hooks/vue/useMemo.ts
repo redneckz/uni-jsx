@@ -1,5 +1,5 @@
-import { areDepsEqual } from './areDepsEqual.js';
-import { getCurrentHook } from './getCurrentHook.js';
+import { areDepsEqual } from './areDepsEqual';
+import { getCurrentHook } from './getCurrentHook';
 
 interface MemoState<R, Deps extends any[]> {
   result: R;
