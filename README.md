@@ -44,25 +44,77 @@ Nuxt demo:
 $ npm run start:nuxt # http://localhost:8060
 ```
 
-## How it works
+## How to use
 
-TODO
+```tsx
+// Setup React JSX factory functions and hooks
+import '@redneckz/uni-jsx/lib/setup.react';
+// <xor> setup Vue3 factory function and React-like hooks
+import '@redneckz/uni-jsx/lib/setup.vue';
+
+import { JSX } from '@redneckz/uni-jsx';
+import { useCallback, useState } from '@redneckz/uni-jsx/lib/hooks';
+
+export const ColoredButton = JSX<{ className?: string }>(({ className, children }) => {
+  const [isRed, setRed] = useState(false);
+
+  const toggleColor = useCallback(() => {
+    setRed(_ => !_);
+  }, []);
+
+  const style = ['button', isRed ? 'text-red' : 'text-black', className].filter(Boolean).join(' ');
+
+  return (
+    <button className={style} onClick={toggleColor}>
+      {children}
+    </button>
+  );
+});
+```
 
 ## Limitations
 
 Common limitations:
 
-- NO lifecycle support, just JSX
-- NO common hooks (`React` hooks and `Vue Composition API` require a lot of effort to generalize)
 - Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
 
-React:
+React specific limitations:
 
 - NO refs forwarding
 
-Vue:
+## React-like hooks
 
-TODO
+Examples:
+
+```tsx
+import { JSX } from '@redneckz/uni-jsx';
+import { useAsyncData } from '@redneckz/uni-jsx/lib/hooks/useAsyncData';
+
+type ChuckJoke = {
+  value?: string;
+};
+
+export const Joke = JSX(() => {
+  const { data } = useAsyncData<ChuckJoke>('https://api.chucknorris.io/jokes/random', fetchJSON);
+
+  return (
+    <section>
+      <p>Random Chuck Norris joke:</p>
+      <p>{data?.value}</p>
+    </section>
+  );
+});
+```
+
+The following React-like hooks are available:
+
+- `useState`
+- `useEffect`
+- `useLayoutEffect`
+- `useCallback`
+- `useMemo`
+- `useRef`
+- `useAsyncData` (uses `useSWR` contract)
 
 # License
 

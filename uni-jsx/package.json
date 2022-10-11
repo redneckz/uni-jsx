@@ -13,15 +13,10 @@
       "require": "./dist/index.js",
       "types": "./lib/index.d.ts"
     },
-    "./lib/setup.vue": {
-      "import": "./lib/setup.vue.js",
-      "require": "./dist/setup.vue.js",
-      "types": "./lib/setup.vue.d.ts"
-    },
-    "./lib/setup.react": {
-      "import": "./lib/setup.react.js",
-      "require": "./dist/setup.react.js",
-      "types": "./lib/setup.react.d.ts"
+    "./lib/setup*": {
+      "import": "./lib/setup*.js",
+      "require": "./dist/setup*.js",
+      "types": "./lib/setup*.d.ts"
     },
     "./lib/hooks": {
       "import": "./lib/hooks/index.js",
