@@ -18,7 +18,7 @@ export default defineComponent({
   components: {
     TestPage,
     TextBlock,
-    PrimaryButton
+    PrimaryButton,
   },
   mounted() {
     console.log(this.$refs.text);
