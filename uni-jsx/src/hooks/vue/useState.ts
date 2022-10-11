@@ -1,4 +1,4 @@
-import { getCurrentHook } from './getCurrentHook.js';
+import { getCurrentHook } from './getCurrentHook';
 
 type SetStateAction<S> = S | ((prevState: S) => S);
 type Dispatch<A> = (value: A) => void;

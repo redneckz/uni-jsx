@@ -1,4 +1,6 @@
 import { JSX } from '@redneckz/uni-jsx';
+import { Counter } from './Counter';
+import { Joke } from './Joke';
 import { PrimaryButton } from './PrimaryButton';
 import { TextBlock } from './TextBlock';
 
@@ -82,6 +84,12 @@ export const TestPage = JSX(() => {
   `;
   return (
     <section>
+      <Counter />
+      <hr />
+      <Joke />
+      <Joke />
+      <Joke />
+      <hr />
       {blocks.map(({ link, ...props }) => (
         <TextBlock {...props} onCite={debugEvent}>
           <cite>{link}</cite>
