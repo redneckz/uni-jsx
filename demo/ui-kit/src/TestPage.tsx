@@ -86,11 +86,7 @@ export const TestPage = JSX(() => {
     <section>
       <Counter />
       <hr />
-      <Joke timeout={0} />
-      <hr />
-      <Joke timeout={500} />
-      <hr />
-      <Joke timeout={1000} />
+      <Joke />
       <hr />
       {blocks.map(({ link, ...props }) => (
         <TextBlock {...props} onCite={debugEvent}>
