@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "type": "module",
   "module": "./lib/index.js",
