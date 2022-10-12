@@ -1,17 +1,26 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "license": "MIT",
   "type": "module",
   "module": "./lib/index.js",
   "main": "./dist/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    "./jsx-runtime": "./jsx-runtime.js",
+    "./jsx-runtime": {
+      "import": "./jsx-runtime.js",
+      "require": "./dist/jsx-runtime.js",
+      "types": "./dist/index.d.ts"
+    },
     ".": {
       "import": "./lib/index.js",
       "require": "./dist/index.js",
       "types": "./lib/index.d.ts"
+    },
+    "./lib/setup": {
+      "import": "./lib/setup.js",
+      "require": "./dist/setup.js",
+      "types": "./lib/setup.d.ts"
     },
     "./lib/setup*": {
       "import": "./lib/setup*.js",
@@ -34,7 +43,8 @@
     "prebuild": "rimraf ../node_modules/@types/react ../node_modules/@types/react-dom",
     "build": "npm run build:commonjs && npm run build:lib",
     "postbuild": "npm i --prefix .. && npm run size",
-    "build:commonjs": "rimraf ./dist && tsc --noImplicitUseStrict",
+    "build:commonjs": "rimraf ./dist && npm run build:runtime && tsc --noImplicitUseStrict",
+    "build:runtime": "tsc ./jsx-runtime.js --allowJs --noImplicitUseStrict --declaration --module commonjs --target esnext --outDir ./dist",
     "build:lib": "rimraf ./lib && tsc --module esnext --noImplicitUseStrict --outDir ./lib",
     "postbuild:lib": "replace-in-file --configFile=replace-config.lib.cjs",
     "test": "jest",
