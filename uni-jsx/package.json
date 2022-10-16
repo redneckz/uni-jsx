@@ -1,7 +1,19 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "2.1.3",
+  "version": "2.1.5",
   "license": "MIT",
+  "author": {
+    "name": "redneckz",
+    "email": "vasyaselsky@yandex.ru"
+  },
+  "description": "Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.",
+  "keywords": ["react", "vue", "vue3", "unification", "jsx", "hooks"],
+  "repository": {
+    "url": "https://github.com/redneckz/uni-jsx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/redneckz/uni-jsx/issues"
+  },
   "type": "module",
   "module": "./lib/index.js",
   "main": "./dist/index.js",

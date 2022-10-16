@@ -1,17 +1,37 @@
-# Unified JSX
+# @redneckz/uni-jsx
 
-Unification layer between `React` and `Vue`
+Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
+
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+[![Bundle size][bundlephobia-image]][bundlephobia-url]
+
+`React` as well as `Vue3` comes with `Virtual DOM` and `JSX` approaches.
+There are a few differences at the low level.
+
+This nano-library negates the differences between them on `JSX` level.
+Making it possible to implement universal components that work without recompiling in both `React` and `Vue3`.
+
+Also the following React-like hooks are available for `Vue3`:
+
+- `useState`
+- `useEffect`
+- `useLayoutEffect`
+- `useCallback`
+- `useMemo`
+- `useRef`
+- and useSWR-like `useAsyncData`
 
 ## Workspaces
 
 - [uni-jsx/](./uni-jsx/README.md) Unified JSX core library
 - [demo/ui-kit](./demo/ui-kit/README.md) package with an example of unified components
-- [demo/vue-demo](./demo/vue-demo/README.md) `Vue 3` app which uses components from `demo/ui-kit`
+- [demo/vue-demo](./demo/vue-demo/README.md) `Vue3` app which uses components from `demo/ui-kit`
 - [demo/react-demo](./demo/react-demo/README.md) `React` app which uses components from `demo/ui-kit`
 - [demo/nuxt-demo](./demo/nuxt-demo/README.md) `Nuxt 3` app which uses components from `demo/ui-kit`
 - [demo/next-demo](./demo/next-demo/README.md) `Next.js` app which uses components from `demo/ui-kit`
 
-## How-to demo
+## How-to start demo
 
 Install and build:
 
@@ -46,31 +66,7 @@ $ npm run start:nuxt # http://localhost:8060
 
 ## How to use
 
-```tsx
-// Setup React JSX factory functions and hooks
-import '@redneckz/uni-jsx/lib/setup.react';
-// <xor> setup Vue3 factory function and React-like hooks
-import '@redneckz/uni-jsx/lib/setup.vue';
-
-import { JSX } from '@redneckz/uni-jsx';
-import { useCallback, useState } from '@redneckz/uni-jsx/lib/hooks';
-
-export const ColoredButton = JSX<{ className?: string }>(({ className, children }) => {
-  const [isRed, setRed] = useState(false);
-
-  const toggleColor = useCallback(() => {
-    setRed(_ => !_);
-  }, []);
-
-  const style = ['button', isRed ? 'text-red' : 'text-black', className].filter(Boolean).join(' ');
-
-  return (
-    <button className={style} onClick={toggleColor}>
-      {children}
-    </button>
-  );
-});
-```
+[Documentation](uni-jsx/README.md)
 
 ## Limitations
 
@@ -82,40 +78,13 @@ React specific limitations:
 
 - NO refs forwarding
 
-## React-like hooks
-
-Examples:
-
-```tsx
-import { JSX } from '@redneckz/uni-jsx';
-import { useAsyncData } from '@redneckz/uni-jsx/lib/hooks/useAsyncData';
-
-type ChuckJoke = {
-  value?: string;
-};
-
-export const Joke = JSX(() => {
-  const { data } = useAsyncData<ChuckJoke>('https://api.chucknorris.io/jokes/random', fetchJSON);
-
-  return (
-    <section>
-      <p>Random Chuck Norris joke:</p>
-      <p>{data?.value}</p>
-    </section>
-  );
-});
-```
-
-The following React-like hooks are available:
-
-- `useState`
-- `useEffect`
-- `useLayoutEffect`
-- `useCallback`
-- `useMemo`
-- `useRef`
-- `useAsyncData` (uses `useSWR` contract)
-
 # License
 
 [MIT](http://vjpr.mit-license.org)
+
+[npm-image]: https://badge.fury.io/js/%40redneckz%2Funi-jsx.svg
+[npm-url]: https://www.npmjs.com/package/%40redneckz%2Funi-jsx
+[build-image]: https://github.com/redneckz/uni-jsx/actions/workflows/main.yml/badge.svg
+[build-url]: https://github.com/redneckz/uni-jsx/actions/workflows/main.yml
+[bundlephobia-image]: https://badgen.net/bundlephobia/min/@redneckz/uni-jsx
+[bundlephobia-url]: https://bundlephobia.com/result?p=@redneckz/uni-jsx

@@ -6,7 +6,7 @@ interface MemoState<R, Deps extends any[]> {
   deps?: Deps;
 }
 
-export function useMemo<R, Deps extends any[]>(computed: () => R, deps?: Deps): R {
+export function useMemo<R, Deps extends any[]>(computed: () => R, deps: Deps): R {
   const [hook] = getCurrentHook<MemoState<R, Deps>>();
 
   if (hook.state && areDepsEqual(deps, hook.state.deps)) {

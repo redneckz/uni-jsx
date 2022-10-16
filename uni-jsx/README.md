@@ -1,10 +1,26 @@
 # @redneckz/uni-jsx
 
-`React` as well as `Vue` comes with `Virtual DOM` and `JSX` approaches.
+Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
+
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+[![Bundle size][bundlephobia-image]][bundlephobia-url]
+
+`React` as well as `Vue3` comes with `Virtual DOM` and `JSX` approaches.
 There are a few differences at the low level.
 
 This nano-library negates the differences between them on `JSX` level.
-Making it possible to implement universal components that work without recompiling in both `React` and `Vue`.
+Making it possible to implement universal components that work without recompiling in both `React` and `Vue3`.
+
+Also the following React-like hooks are available for `Vue3`:
+
+- `useState`
+- `useEffect`
+- `useLayoutEffect`
+- `useCallback`
+- `useMemo`
+- `useRef`
+- and useSWR-like `useAsyncData`
 
 ## Install
 
@@ -29,10 +45,10 @@ To transpile universal components configure `TypeScript` as follows:
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "@redneckz/uni-jsx",
-    ...
+    "jsxImportSource": "@redneckz/uni-jsx"
+    // ...
   }
-  ...
+  // ...
 }
 ```
 
@@ -40,42 +56,43 @@ Universal component:
 
 ```tsx
 import { JSX } from '@redneckz/uni-jsx';
+import { useState, useCallback } from '@redneckz/uni-jsx/lib/hooks';
 
 export interface TextBlockProps {
-  primary?: string;
-  secondary?: string[];
-  dark?: boolean;
-  onCite?: (ev: PointerEvent) => void;
+  html?: string;
+  onClick?: (event: Event) => void;
 }
 
-const baseStyle = {
-  cursor: 'pointer'
-};
-
 export const TextBlock = JSX<TextBlockProps>(props => {
-  const style = Object.assign({}, baseStyle, props.dark ? { color: '#CCC', backgroundColor: '#777' } : {});
+  const { html, onClick, children } = props;
+
+  const [isDark, setDark] = useState(false);
+  const handleClick = useCallback(
+    (event: Event) => {
+      setDark(_ => !_);
+      onClick && onClick(event);
+    },
+    [onClick]
+  );
+
+  const style = isDark ? { color: '#CCC', backgroundColor: '#777' } : {};
+
   return (
-    <section className="text-block__root" style={style} onClick={props.onCite as any}>
-      {props.primary && (
-        <p className="text-block__primary">
-          <em>{props.primary}</em>
-        </p>
-      )}
-      {props.secondary && <pre className="text-block__secondary">{props.secondary?.join('\n')}</pre>}
-      {props.children && <p>{props.children}</p>}
+    <section className="text-block" style={style} onClick={handleClick}>
+      {html && <p dangerouslySetInnerHTML={{ __html: html }}></p>}
+      {children && <p>{children}</p>}
     </section>
   );
 });
 ```
 
-## [Vue] How to use universal components
+## [Vue3] How to use universal components
 
 ```ts
-import { createApp, h } from 'vue';
-import App from './App.vue';
-import { setup } from '@redneckz/uni-jsx';
+import '@redneckz/uni-jsx/lib/setup.vue';
 
-setup.vue(h);
+import { createApp } from 'vue';
+import App from './App.vue';
 
 createApp(App).mount('#app');
 ```
@@ -83,7 +100,7 @@ createApp(App).mount('#app');
 ```vue
 <template>
   <h1>Vue with unified components</h1>
-  <text-block primary="Primary text..." @cite="debugEvent">
+  <text-block html="<em>Primary text...</em>" @click="debugEvent">
     <cite>http://www.asimovonline.com</cite>
   </text-block>
 </template>
@@ -98,7 +115,7 @@ export default defineComponent({
     TextBlock
   },
   methods: {
-    debugEvent(event: PointerEvent) {
+    debugEvent(event: Event) {
       console.log(event);
     }
   }
@@ -108,7 +125,15 @@ export default defineComponent({
 
 ## [React] How to use universal components
 
-In index.html file set `globalThis.__UNI_REACT__` as true
+```tsx
+import '@redneckz/uni-jsx/lib/setup.react';
+
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
+
+const root = createRoot(document.getElementById('root')!);
+root.render(<App />);
+```
 
 ```html
 <!DOCTYPE html>
@@ -121,23 +146,9 @@ In index.html file set `globalThis.__UNI_REACT__` as true
     <div id="root"></div>
   </body>
   <script>
-    globalThis.__UNI_REACT__ = true;
+    globalThis.__UNI_REACT__ = true; // Temporal requirement
   </script>
 </html>
-```
-
-```tsx
-import runtime from 'react/jsx-runtime';
-import { createRoot } from 'react-dom/client';
-import { App } from './App';
-
-import { setup } from '@redneckz/uni-jsx';
-
-const { jsx, jsxs } = runtime as any;
-setup(jsx, jsxs);
-
-const root = createRoot(document.getElementById('root')!);
-root.render(<App />);
 ```
 
 ```tsx
@@ -148,10 +159,11 @@ export function App() {
   const debugEvent = useCallback((_: unknown) => {
     console.log(_);
   }, []);
+
   return (
     <>
       <h1>React with unified components</h1>
-      <TextBlock primary="Primary text..." onCite={debugEvent}>
+      <TextBlock html="<em>Primary text...</em>" onClick={debugEvent}>
         <cite>http://www.asimovonline.com</cite>
       </TextBlock>
     </>
@@ -161,81 +173,11 @@ export function App() {
 
 ## [Next.js] How to use universal components
 
-```tsx
-import { setup } from '@redneckz/uni-jsx';
-import type { AppProps } from 'next/app';
-import runtime from 'react/jsx-runtime';
+Please take a look at `/demo/next-demo`
 
-const { jsx, jsxs } = runtime as any;
-setup(jsx, jsxs);
+## [Nuxt3] How to use universal components
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
-
-export default MyApp;
-```
-
-```tsx
-import { useCallback } from 'react';
-import { TextBlock } from '@demo/ui-kit';
-
-export function App() {
-  const debugEvent = useCallback((_: unknown) => {
-    console.log(_);
-  }, []);
-  return (
-    <>
-      <h1>Next with unified components</h1>
-      <TextBlock primary="Primary text..." onCite={debugEvent}>
-        <cite>http://www.asimovonline.com</cite>
-      </TextBlock>
-    </>
-  );
-}
-```
-
-## [Nuxt] How to use universal components
-
-```ts
-import { setup } from '@redneckz/uni-jsx';
-import { h } from 'vue';
-import App from './main.vue';
-
-setup.vue(h);
-
-export default defineComponent({
-  setup() {
-    return () => h(App);
-  }
-});
-```
-
-```vue
-<template>
-  <h1>Nuxt with unified components</h1>
-  <text-block primary="Primary text..." @cite="debugEvent">
-    <cite>http://www.asimovonline.com</cite>
-  </text-block>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { TextBlock } from '@demo/ui-kit';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    TextBlock
-  },
-  methods: {
-    debugEvent(event: PointerEvent) {
-      console.log(event);
-    }
-  }
-});
-</script>
-```
+Please take a look at `/demo/nuxt-demo`
 
 ## How it works
 
@@ -245,18 +187,19 @@ TODO
 
 Common limitations:
 
-- NO lifecycle support, just JSX
-- NO common hooks (`React` hooks and `Vue Composition API` require a lot of effort to generalize)
 - Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
 
 React:
 
 - NO refs forwarding
 
-Vue:
-
-TODO
-
 # License
 
 [MIT](http://vjpr.mit-license.org)
+
+[npm-image]: https://badge.fury.io/js/%40redneckz%2Funi-jsx.svg
+[npm-url]: https://www.npmjs.com/package/%40redneckz%2Funi-jsx
+[build-image]: https://github.com/redneckz/uni-jsx/actions/workflows/main.yml/badge.svg
+[build-url]: https://github.com/redneckz/uni-jsx/actions/workflows/main.yml
+[bundlephobia-image]: https://badgen.net/bundlephobia/min/@redneckz/uni-jsx
+[bundlephobia-url]: https://bundlephobia.com/result?p=@redneckz/uni-jsx
