@@ -1,8 +1,9 @@
-import { useEffect, useState, useMemo } from './core';
+import { useEffect, useMemo, useState } from './core';
 
 type Empty = null | undefined | false;
 type ArgumentsTuple = [any, ...unknown[]] | readonly [any, ...unknown[]];
-type Arguments = string | ArgumentsTuple | Record<any, any> | Empty;
+type SimpleKey = string;
+type Arguments = SimpleKey | ArgumentsTuple | Record<any, any> | Empty;
 
 export type Key = Arguments | (() => Arguments);
 
@@ -20,6 +21,10 @@ export type Fetcher<Data = unknown, K extends Key = Key> = K extends () => reado
   ? (...args: [Arg]) => FetcherResponse<Data>
   : never;
 
+export interface AsyncDataOptions {
+  fallback?: Record<SimpleKey, unknown>;
+}
+
 export type MutatorCallback<D = any> = (data?: D) => Promise<undefined | D> | undefined | D;
 export type Mutator<D> = (data?: D | Promise<D> | MutatorCallback<D>) => Promise<D | undefined>;
 
@@ -34,17 +39,27 @@ const consistentDataMap = new Map();
 
 export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   key: K,
-  fetcher: Fetcher<Data, K>
+  fetcher: Fetcher<Data, K>,
+  { fallback }: AsyncDataOptions = {}
 ): AsyncDataResponse<Data, Err> {
   const args = useMemo(() => keyToArgs(key), [key]);
 
   const [data, setData] = useState<Data>();
   const [error, setError] = useState<Err>();
 
+  const updateData = (_: Data) => {
+    setData(_);
+    setError(undefined);
+  };
+  const updateError = (_: Err) => {
+    setData(undefined);
+    setError(_ as Err);
+  };
+
   const chainToConsistentResult = (_: Promise<Data>) => {
-    _.then(_data => consistentDataMap.get(args) || _data)
-      .then(setData)
-      .catch(setError);
+    _.then(rawData => consistentDataMap.get(args) || rawData)
+      .then(updateData)
+      .catch(updateError);
   };
 
   useEffect(() => {
@@ -60,15 +75,18 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
       if ('then' in _) {
         chainToConsistentResult(_);
       } else {
-        setData(_);
+        updateData(_);
       }
     } catch (err) {
-      setError(err as Err);
+      updateError(err as Err);
     }
   }, [fetcher, ...args]);
 
+  const simpleKey = args[0];
+  const fallbackData = fallback && typeof simpleKey === 'string' && (fallback[simpleKey] as Data);
+
   return {
-    data,
+    data: !data && !error && fallbackData ? fallbackData : data,
     error,
     mutate: () => Promise.resolve(undefined),
     isValidating: false

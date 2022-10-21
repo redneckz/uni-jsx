@@ -6,4 +6,4 @@ export const setup = (_impl: typeof _useAsyncData) => {
   impl = _impl;
 };
 
-export const useAsyncData: typeof _useAsyncData = (key, fetcher) => impl(key, fetcher);
+export const useAsyncData: typeof _useAsyncData = (...args) => impl(...args);

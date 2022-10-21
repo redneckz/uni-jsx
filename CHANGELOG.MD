@@ -1,6 +1,14 @@
 # Changelog
 
-## [1.0.0] - 2022-07-25 
+## [2.1.6] - 2022-10-21
+
+### New
+
+- Full support of functional universal components with hooks (stateful)
+- React-like hooks for Vue3: `useState`, `useEffect`, `useLayoutEffect`, `useCallback`, `useMemo`, `useRef`
+- useSWR-like hook `useAsyncData`
+
+## [1.0.0] - 2022-07-25
 
 ### Breaking changes
 
