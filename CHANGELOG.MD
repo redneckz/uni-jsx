@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.7] - 2022-11-12
+
+### New
+
+- Support of refs to native DOM nodes (by means of `useRef` hook)
+
 ## [2.1.6] - 2022-10-21
 
 ### New

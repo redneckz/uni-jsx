@@ -1,4 +1,5 @@
 import { JSX } from '@redneckz/uni-jsx';
+import { useCallback, useEffect, useRef } from '@redneckz/uni-jsx/lib/hooks';
 import { Counter } from './Counter';
 import { Joke } from './Joke';
 import { PrimaryButton } from './PrimaryButton';
@@ -82,6 +83,13 @@ export const TestPage = JSX(() => {
       Last Updated : 04/09/2022 17:46:14
     </p>
   `;
+
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    console.log('ref', ref.current);
+  }, []);
+
   return (
     <section>
       <Counter />
@@ -94,7 +102,7 @@ export const TestPage = JSX(() => {
         </TextBlock>
       ))}
       <PrimaryButton onClick={debugEvent}>Click me</PrimaryButton>
-      <div dangerouslySetInnerHTML={{ __html }}></div>
+      <div ref={ref} dangerouslySetInnerHTML={{ __html }}></div>
     </section>
   );
 });

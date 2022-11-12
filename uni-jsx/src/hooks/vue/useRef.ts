@@ -8,7 +8,11 @@ export function useRef<T>(initialValue: T): { current: T | null } {
   const [hook] = getCurrentHook<RefState<T>>();
 
   if (!hook.state) {
-    hook.state = { current: initialValue || null };
+    const state: RefState<T> = (_: T | null) => {
+      state.current = _;
+    };
+    state.current = initialValue || null;
+    hook.state = state;
   }
 
   return hook.state;

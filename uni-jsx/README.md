@@ -56,7 +56,7 @@ Universal component:
 
 ```tsx
 import { JSX } from '@redneckz/uni-jsx';
-import { useState, useCallback } from '@redneckz/uni-jsx/lib/hooks';
+import { useState, useCallback, useRef, useEffect } from '@redneckz/uni-jsx/lib/hooks';
 
 export interface TextBlockProps {
   html?: string;
@@ -75,11 +75,17 @@ export const TextBlock = JSX<TextBlockProps>(props => {
     [onClick]
   );
 
+  const ref = useRef<HTMLParagraphElement | null>(null);
+
+  useEffect(() => {
+    console.log('ref', ref.current);
+  }, []);
+
   const style = isDark ? { color: '#CCC', backgroundColor: '#777' } : {};
 
   return (
     <section className="text-block" style={style} onClick={handleClick}>
-      {html && <p dangerouslySetInnerHTML={{ __html: html }}></p>}
+      {html && <p ref={ref} dangerouslySetInnerHTML={{ __html: html }}></p>}
       {children && <p>{children}</p>}
     </section>
   );
@@ -185,13 +191,7 @@ TODO
 
 ## Limitations
 
-Common limitations:
-
-- Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
-
-React:
-
-- NO refs forwarding
+Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
 
 # License
 

@@ -1,4 +1,4 @@
-import { useAsyncData } from './useAsyncDataDefault';
+import { useAsyncData } from './useAsyncData';
 
 jest.mock('./core', () => {
   const stateSlotCount = 2; // Data and Error
