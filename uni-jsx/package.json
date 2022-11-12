@@ -87,7 +87,10 @@
   },
   "size-limit": [
     {
-      "path": "lib/**/*.js"
+      "path": "lib/*.js"
+    },
+    {
+      "path": "lib/hooks/**/*.js"
     }
   ]
 }
