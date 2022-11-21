@@ -25,6 +25,7 @@
     "start:vue": "npm run start -w @demo/vue-demo",
     "start:react": "npm run start -w @demo/react-demo",
     "start:next": "npm run dev -w @demo/next-demo",
-    "start:nuxt": "npm run dev -w @demo/nuxt-demo"
+    "start:nuxt": "npm run dev -w @demo/nuxt-demo",
+    "start:preact": "npm run start -w @demo/preact-demo"
   }
 }

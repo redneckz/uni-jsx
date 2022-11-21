@@ -1,0 +1,27 @@
+{
+  "name": "@demo/preact-demo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Demo of unified JSX for preact",
+  "keywords": [
+    "jsx",
+    "preact"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "vladeiko",
+    "email": "vladeiko999@gmail.com"
+  },
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch"
+  },
+  "dependencies": {
+    "@demo/ui-kit": "*",
+    "@redneckz/uni-jsx": "*",
+    "preact": "10.10.0"
+  },
+  "devDependencies": {
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "license": "MIT",
   "author": {
     "name": "redneckz",
@@ -75,7 +75,8 @@
   },
   "peerDependencies": {
     "react": ">=16.0.0",
-    "vue": ">=3.0.0"
+    "vue": ">=3.0.0",
+    "preact": ">=10.10.0"
   },
   "peerDependenciesMeta": {
     "react": {
