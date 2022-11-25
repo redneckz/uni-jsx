@@ -185,6 +185,16 @@ Please take a look at `/demo/next-demo`
 
 Please take a look at `/demo/nuxt-demo`
 
+## [preact] How to use universal components
+
+Same to `React`. Difference in setup function
+
+Please take a look at `/demo/preact-demo`
+
+## [Next.js+preact]
+
+Same to `Next.js`. Difference in setup function
+
 ## How it works
 
 TODO
