@@ -1,4 +1,4 @@
-# [preact] Demo of unified JSX
+# [Preact] Demo of unified JSX
 
 ## How-to
 
