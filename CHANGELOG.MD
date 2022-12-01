@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.3.2] - 2022-12-1
+
+### Update
+
+- Update docs
+
+## [2.3.1] - 2022-11-25
+
+### Fix
+
+- Remove `setup.pnext` function
+- Fix `setup.preact` function (now for both `Next.js + Preact` and `Preact`)
+
+## [2.3.0] - 2022-11-25
+
+### New
+
+- Support of `Preact + Next.js` (`setup.pnext` function)
+
+## [2.2.0] - 2022-11-21
+
+### New
+
+- Support of `Preact` (`setup.preact` function)
+
 ## [2.1.7] - 2022-11-12
 
 ### New

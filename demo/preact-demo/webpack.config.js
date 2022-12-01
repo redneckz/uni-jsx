@@ -36,5 +36,5 @@ module.exports = {
       directory: './dist'
     }
   },
-  plugins: [new HtmlWebpackPlugin({ title: 'Demo of unified JSX for PREACT' })]
+  plugins: [new HtmlWebpackPlugin({ title: 'Demo of unified JSX for Preact' })]
 };

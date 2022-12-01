@@ -1,6 +1,6 @@
 # @redneckz/uni-jsx
 
-Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
+Unification layer between `React`, `Preact` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][build-image]][build-url]
@@ -185,15 +185,57 @@ Please take a look at `/demo/next-demo`
 
 Please take a look at `/demo/nuxt-demo`
 
-## [preact] How to use universal components
+## [Preact] How to use universal components
 
 Same to `React`. Difference in setup function
 
 Please take a look at `/demo/preact-demo`
 
-## [Next.js+preact]
+## [Next.js + Preact]
 
-Same to `Next.js`. Difference in setup function
+package.json:
+
+```json
+{
+  // ...
+  "dependencies": {
+    "next": "^12.3.3", // Not works with Next.js 13
+    "preact": "^10.11.3",
+    "preact-render-to-string": "^5.2.6",
+    "react": "npm:@preact/compat@^17.1.2",
+    "react-dom": "npm:@preact/compat@^17.1.2",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.2.0"
+  }
+  // ...
+}
+```
+
+next.config.js
+
+```js
+const withPreact = require('next-plugin-preact');
+
+module.exports = withPreact({});
+```
+
+setup.ts
+
+```ts
+import { setupHooks } from '@redneckz/uni-jsx/lib/hooks/index';
+import { setup } from '@redneckz/uni-jsx/lib/setup';
+import { h } from 'preact';
+import * as React from 'react';
+
+globalThis.__UNI_REACT__ = true;
+
+setup((type, rawProps) => {
+  const { children, ...props } = rawProps;
+
+  return h(type, props, children);
+});
+
+setupHooks(React);
+```
 
 ## How it works
 

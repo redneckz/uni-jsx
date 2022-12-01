@@ -1,6 +1,6 @@
 # @redneckz/uni-jsx
 
-Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
+Unification layer between `React`, `Preact` and `Vue3`. Write React-like unified components and use everywhere without recompilation.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][build-image]][build-url]
@@ -30,7 +30,7 @@ Also the following React-like hooks are available for `Vue3`:
 - [demo/react-demo](./demo/react-demo/README.md) `React` app which uses components from `demo/ui-kit`
 - [demo/nuxt-demo](./demo/nuxt-demo/README.md) `Nuxt 3` app which uses components from `demo/ui-kit`
 - [demo/next-demo](./demo/next-demo/README.md) `Next.js` app which uses components from `demo/ui-kit`
-- [demo/preact-demo](./demo/preact-demo/README.md) `preact` app which uses components from `demo/ui-kit`
+- [demo/preact-demo](./demo/preact-demo/README.md) `Preact` app which uses components from `demo/ui-kit`
 
 ## How-to start demo
 
@@ -63,6 +63,12 @@ Nuxt demo:
 
 ```shell
 $ npm run start:nuxt # http://localhost:8060
+```
+
+Preact demo:
+
+```shell
+$ npm run start:preact
 ```
 
 ## How to use
