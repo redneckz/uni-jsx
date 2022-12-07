@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.3] - 2022-12-7
+
+### Fix
+
+- Add SSR check in Vue useEffect hook
+
 ## [2.3.2] - 2022-12-1
 
 ### Update
