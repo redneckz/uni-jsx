@@ -6,6 +6,10 @@ jest.mock(`./getCurrentHook`, () => ({
   getCurrentHook: jest.fn()
 }));
 
+jest.mock(`./isSSR`, () => ({
+  isSSR: false
+}));
+
 describe('useEffect', () => {
   let hook: HookState;
 
