@@ -86,7 +86,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   const fallbackData = fallback && typeof simpleKey === 'string' && (fallback[simpleKey] as Data);
 
   return {
-    data: !data && !error && fallbackData ? fallbackData : data,
+    data: !data && fallbackData ? fallbackData : data,
     error,
     mutate: () => Promise.resolve(undefined),
     isValidating: false
