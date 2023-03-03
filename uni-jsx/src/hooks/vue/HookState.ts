@@ -10,7 +10,11 @@ export class HookState<S = any> {
   }
 
   update(_: Updater<S>): void {
-    this.state = _ instanceof Function ? _(this.state) : _;
-    this.inst?._hooks?.update();
+    const oldState = this.state;
+    this.state = _ instanceof Function ? _(oldState) : _;
+
+    if (oldState !== this.state) {
+      this.inst?._hooks?.update();
+    }
   }
 }

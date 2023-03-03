@@ -19,7 +19,7 @@ function updateEffectImp(isLayout = false) {
   return <Deps extends any[]>(effect: Effect, deps: Deps): void => {
     const [hook] = getCurrentHook<EffectState<Deps>>();
 
-    if (isSSR) {
+    if (isSSR()) {
       return;
     }
 

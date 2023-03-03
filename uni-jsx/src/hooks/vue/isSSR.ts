@@ -1,1 +1,2 @@
-export const isSSR = typeof process === 'object';
+export const isSSR = () =>
+  Boolean(typeof globalThis.process === 'object' && globalThis.process && globalThis.process.version);

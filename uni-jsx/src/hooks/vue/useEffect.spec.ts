@@ -7,7 +7,7 @@ jest.mock(`./getCurrentHook`, () => ({
 }));
 
 jest.mock(`./isSSR`, () => ({
-  isSSR: false
+  isSSR: () => false
 }));
 
 describe('useEffect', () => {
