@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from './core';
+import { isFilled } from './isFilled';
+import { AsyncCache, applyCache } from './AsyncCache';
 
 type Empty = null | undefined | false;
 type ArgumentsTuple = [any, ...unknown[]] | readonly [any, ...unknown[]];
@@ -8,6 +10,8 @@ type Arguments = SimpleKey | ArgumentsTuple | Record<any, any> | Empty;
 export type Key = Arguments | (() => Arguments);
 
 type FetcherResponse<Data = unknown> = Data | Promise<Data>;
+
+type SimpleFetcher<Data = unknown> = (key: SimpleKey) => FetcherResponse<Data>;
 
 export type Fetcher<Data = unknown, K extends Key = Key> = K extends () => readonly [...infer Args] | Empty
   ? (...args: [...Args]) => FetcherResponse<Data>
@@ -23,6 +27,7 @@ export type Fetcher<Data = unknown, K extends Key = Key> = K extends () => reado
 
 export interface AsyncDataOptions {
   fallback?: Record<SimpleKey, unknown>;
+  cache?: AsyncCache;
 }
 
 export type MutatorCallback<D = any> = (data?: D) => Promise<undefined | D> | undefined | D;
@@ -35,69 +40,52 @@ export interface AsyncDataResponse<Data = any, Error = any> {
   isValidating: boolean; // TODO: No supported
 }
 
-const consistentDataMap = new Map();
+const isSimpleKey = (args?: any[]): args is [SimpleKey] =>
+  Boolean(args && Array.isArray(args) && args.length === 1 && typeof args[0] === 'string');
 
 export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   key: K,
   fetcher: Fetcher<Data, K>,
-  { fallback }: AsyncDataOptions = {}
+  { fallback, cache }: AsyncDataOptions = {}
 ): AsyncDataResponse<Data, Err> {
   const args = useMemo(() => keyToArgs(key), [key]);
 
-  const [data, setData] = useState<Data>();
-  const [error, setError] = useState<Err>();
+  const [simpleKey] = isSimpleKey(args) ? args : [];
 
-  const updateData = (_: Data) => {
-    setData(_);
-    setError(undefined);
-  };
-  const updateError = (_: Err) => {
-    setData(undefined);
-    setError(_ as Err);
-  };
-
-  const chainToConsistentResult = (_: Promise<Data>) => {
-    _.then(rawData => consistentDataMap.get(args) || rawData)
-      .then(updateData)
-      .catch(updateError);
-  };
+  const [data, setData] = useState<Data | undefined>(undefined);
+  const [error, setError] = useState<Err | undefined>(undefined);
 
   useEffect(() => {
-    const isEmptyKey = args.every(_ => _ === null);
-
+    const isEmptyKey = !args.some(isFilled);
     if (isEmptyKey) {
       return;
     }
 
-    try {
-      const _ = fetcher(...args);
-
-      if ('then' in _) {
-        chainToConsistentResult(_);
-      } else {
-        updateData(_);
+    (async () => {
+      try {
+        const newData = await (simpleKey
+          ? applyCache(fetcher as SimpleFetcher<Data>, cache)(simpleKey)
+          : fetcher(...args));
+        setData(newData);
+        setError(undefined);
+      } catch (err) {
+        setData(undefined);
+        setError(err as Err);
       }
-    } catch (err) {
-      updateError(err as Err);
-    }
-  }, [fetcher, ...args]);
+    })();
+  }, [fetcher, cache, args]);
 
-  const simpleKey = args[0];
-  const fallbackData = fallback && typeof simpleKey === 'string' && (fallback[simpleKey] as Data);
+  const fallbackData = fallback && simpleKey && (fallback[simpleKey] as Data);
 
   return {
     data: !data && fallbackData ? fallbackData : data,
     error,
-    mutate: () => Promise.resolve(undefined),
+    mutate: () => Promise.resolve(undefined), // TODO Clean up cache
     isValidating: false
   };
 }
 
 function keyToArgs<K extends Key = null>(key: K): Parameters<Fetcher<unknown, Key>> {
-  if (!key) {
-    return [key];
-  }
-
   if (Array.isArray(key)) {
     return key;
   } else if (key instanceof Function) {

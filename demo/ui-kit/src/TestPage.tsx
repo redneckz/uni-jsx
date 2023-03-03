@@ -1,5 +1,5 @@
 import { JSX } from '@redneckz/uni-jsx';
-import { useCallback, useEffect, useRef } from '@redneckz/uni-jsx/lib/hooks';
+import { useCallback, useEffect, useRef, useState } from '@redneckz/uni-jsx/lib/hooks';
 import { Counter } from './Counter';
 import { Joke } from './Joke';
 import { PrimaryButton } from './PrimaryButton';
@@ -90,11 +90,19 @@ export const TestPage = JSX(() => {
     console.log('ref', ref.current);
   }, []);
 
+  const [rnd, setRnd] = useState(0);
+  const nextRnd = useCallback(() => {
+    setRnd(_ => _ + 1);
+  }, []);
+
   return (
     <section>
       <Counter />
       <hr />
-      <Joke />
+      <PrimaryButton onClick={nextRnd}>Next joke</PrimaryButton>
+      <Joke rnd={rnd} />
+      <Joke timeout={100} rnd={rnd} />
+      <Joke timeout={200} rnd={rnd} />
       <hr />
       {blocks.map(({ link, ...props }) => (
         <TextBlock {...props} onCite={debugEvent}>
