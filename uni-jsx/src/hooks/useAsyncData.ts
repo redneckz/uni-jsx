@@ -61,18 +61,25 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
       return;
     }
 
+    let canceled = false;
+    const setResult = (newData: Data | undefined, err?: Err) => {
+      if (!canceled) {
+        setData(newData);
+        setError(err);
+      }
+    };
+
     (async () => {
       try {
-        const newData = await (simpleKey
-          ? applyCache(fetcher as SimpleFetcher<Data>, cache)(simpleKey)
-          : fetcher(...args));
-        setData(newData);
-        setError(undefined);
+        setResult(await (simpleKey ? applyCache(fetcher as SimpleFetcher<Data>, cache)(simpleKey) : fetcher(...args)));
       } catch (err) {
-        setData(undefined);
-        setError(err as Err);
+        setResult(undefined, err as Err);
       }
     })();
+
+    return () => {
+      canceled = true;
+    };
   }, [fetcher, cache, args]);
 
   const fallbackData = fallback && simpleKey && (fallback[simpleKey] as Data);
