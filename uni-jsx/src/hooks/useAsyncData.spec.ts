@@ -1,25 +1,23 @@
 import { AsyncCache } from './AsyncCache';
 import { useAsyncData } from './useAsyncData';
 
-jest.mock('./core', () => {
-  const stateSlotCount = 2; // Data and Error
-  let stateList = new Array(stateSlotCount);
-  let stateIndex = 0;
-  return {
-    useMemo: (data: any) => data(),
-    useEffect: (effect: any) => effect(),
-    useState: (initial: any) => {
-      const currIndex = stateIndex;
-      stateIndex = (stateIndex + 1) % stateSlotCount;
-      return [
-        stateList[currIndex] || initial,
-        (_: any) => {
-          stateList[currIndex] = _;
-        }
-      ];
-    }
-  };
-});
+let stateSlots = [undefined, undefined]; // Data and Error
+let slotIndex = 0;
+
+jest.mock('./core', () => ({
+  useMemo: (data: Function) => data(),
+  useEffect: (effect: Function) => effect(),
+  useState: () => {
+    const currIndex = slotIndex;
+    slotIndex = (slotIndex + 1) % stateSlots.length;
+    return [
+      stateSlots[currIndex],
+      (_: any) => {
+        stateSlots[currIndex] = _;
+      }
+    ];
+  }
+}));
 
 const DATA_KEY = 'dummyKey';
 
@@ -33,7 +31,8 @@ describe('useAsyncData', () => {
   };
 
   beforeEach(() => {
-    useAsyncData(DATA_KEY, () => null); // reset state
+    stateSlots = [undefined, undefined];
+    slotIndex = 0;
   });
 
   it.only('should return data from fetcher', async () => {

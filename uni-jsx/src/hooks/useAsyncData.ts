@@ -37,7 +37,6 @@ export interface AsyncDataResponse<Data = any, Error = any> {
   data?: Data;
   error?: Error;
   mutate: Mutator<Data>; // TODO: No supported
-  isValidating: boolean; // TODO: No supported
 }
 
 const isSimpleKey = (args?: any[]): args is [SimpleKey] =>
@@ -87,8 +86,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   return {
     data: !data && fallbackData ? fallbackData : data,
     error,
-    mutate: () => Promise.resolve(undefined), // TODO Clean up cache
-    isValidating: false
+    mutate: () => Promise.resolve(undefined) // TODO Clean up cache
   };
 }
 

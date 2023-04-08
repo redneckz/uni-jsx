@@ -12,7 +12,7 @@ There are a few differences at the low level.
 This nano-library negates the differences between them on `JSX` level.
 Making it possible to implement universal components that work without recompiling in both `React` and `Vue3`.
 
-Also the following React-like hooks are available for `Vue3`:
+Also the following React-like core hooks are available for `Vue3`:
 
 - `useState`
 - `useEffect`
@@ -20,7 +20,6 @@ Also the following React-like hooks are available for `Vue3`:
 - `useCallback`
 - `useMemo`
 - `useRef`
-- and useSWR-like `useAsyncData`
 
 ## Workspaces
 

@@ -7,7 +7,14 @@
     "email": "vasyaselsky@yandex.ru"
   },
   "description": "Unification layer between `React` and `Vue3`. Write React-like unified components and use everywhere without recompilation.",
-  "keywords": ["react", "vue", "vue3", "unification", "jsx", "hooks"],
+  "keywords": [
+    "react",
+    "vue",
+    "vue3",
+    "unification",
+    "jsx",
+    "hooks"
+  ],
   "repository": {
     "url": "https://github.com/redneckz/uni-jsx.git"
   },
@@ -27,5 +34,8 @@
     "start:next": "npm run dev -w @demo/next-demo",
     "start:nuxt": "npm run dev -w @demo/nuxt-demo",
     "start:preact": "npm run start -w @demo/preact-demo"
+  },
+  "dependencies": {
+    "@redneckz/uni-jsx": "^2.6.0"
   }
 }

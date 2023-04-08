@@ -12,7 +12,7 @@ There are a few differences at the low level.
 This nano-library negates the differences between them on `JSX` level.
 Making it possible to implement universal components that work without recompiling in both `React` and `Vue3`.
 
-Also the following React-like hooks are available for `Vue3`:
+Also the following React-like core hooks are available for `Vue3`:
 
 - `useState`
 - `useEffect`
@@ -20,7 +20,6 @@ Also the following React-like hooks are available for `Vue3`:
 - `useCallback`
 - `useMemo`
 - `useRef`
-- and useSWR-like `useAsyncData`
 
 ## Install
 
@@ -187,8 +186,6 @@ Please take a look at `/demo/nuxt-demo`
 
 ## [Preact] How to use universal components
 
-Same to `React`. Difference in setup function
-
 Please take a look at `/demo/preact-demo`
 
 ## [Next.js + Preact]
@@ -237,13 +234,98 @@ setup((type, rawProps) => {
 setupHooks(React);
 ```
 
-## How it works
+## Utility Hooks
 
-TODO
+### Structural Hooks
+
+- `useBool` - boolean state with operations
+
+```ts
+const [isEnabled, { setTrue: enable, setFalse: disable, toggle }] = useBool();
+```
+
+- `useList` - list with operations
+
+```tsx
+const [items, { push: addItem, pop: removeLastItem, remove: removeItem, clear: removeAllItems }] = useList<BuzItem>();
+```
+
+- `useDict` - dictionary with operations
+
+```ts
+const [
+  form,
+  {
+    setDict: updateForm,
+    setItem: updateField,
+    removeItem: removeField,
+    assign: updateFields,
+    unassign: removeFields,
+    clear: resetForm
+  }
+] = useDict<BuzForm>({});
+```
+
+### API-centric Hooks:
+
+- `useAsyncData` - `useSWR`-like hook
+
+```ts
+const fetcher = useCallback(
+  async (url: string) => {
+    await delay(timeout);
+    return fetchJSON<ChuckJoke>(url);
+  },
+  [timeout]
+);
+
+const { data: chuckJoke } = useAsyncData<ChuckJoke>(
+  `https://api.chucknorris.io/jokes/random?category=${CATEGORIES[rnd % CATEGORIES.length]}`,
+  fetcher
+);
+```
+
+- `useEventListener` - apply event handler to native DOM node
+
+```ts
+useEventListener(globalThis.document, 'click', handleDocumentClick);
+```
+
+- `useOutsideClick` - registers callback to handle click outside of some node (menu, dropdown, dialog and so on)
+
+```tsx
+const menuRef = useOutsideClick<HTMLDivElement>(closeDropdownMenu);
+...
+<div role="menu" ref={menuRef}>...</div>
+```
+
+- `useDebouncedEffect` - debounced effect with default timeout - 300ms
+
+```ts
+useDebouncedEffect(
+  () => {
+    doSomethingWith(some, dependencies);
+  },
+  [some, dependencies],
+  300
+);
+```
+
+- `useScript` - TODO
+
+```ts
+// TODO
+```
 
 ## Limitations
 
-Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
+Common limitations:
+
+- Events are streamed up as-is (avoid usage of normalized Event fields specific to `React` or `Vue`)
+
+React specific limitations:
+
+- NO refs forwarding
 
 # License
 
