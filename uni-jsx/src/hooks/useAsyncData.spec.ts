@@ -1,4 +1,4 @@
-import { AsyncCache } from './AsyncCache';
+import { AsyncCache, noCache } from './AsyncCache';
 import { useAsyncData } from './useAsyncData';
 
 let stateSlots = [undefined, undefined]; // Data and Error
@@ -22,14 +22,6 @@ jest.mock('./core', () => ({
 const DATA_KEY = 'dummyKey';
 
 describe('useAsyncData', () => {
-  const cache: AsyncCache = {
-    get: () => undefined,
-    set: () => cache,
-    has: () => false,
-    delete: () => false,
-    clear: () => {}
-  };
-
   beforeEach(() => {
     stateSlots = [undefined, undefined];
     slotIndex = 0;
@@ -41,9 +33,9 @@ describe('useAsyncData', () => {
     const dummyData = { value: 'dummyValue' };
     const fetcher = () => dummyData;
 
-    useAsyncData(DATA_KEY, fetcher, { cache });
+    useAsyncData(DATA_KEY, fetcher, { cache: noCache });
     await DATA_KEY;
-    const { data, error } = useAsyncData(DATA_KEY, fetcher, { cache });
+    const { data, error } = useAsyncData(DATA_KEY, fetcher, { cache: noCache });
 
     expect(data).toEqual(dummyData);
     expect(error).toBeFalsy();
@@ -57,8 +49,8 @@ describe('useAsyncData', () => {
       throw dummyError;
     };
 
-    useAsyncData(DATA_KEY, errorFetcher, { cache });
-    const { data, error } = useAsyncData(DATA_KEY, errorFetcher, { cache });
+    useAsyncData(DATA_KEY, errorFetcher, { cache: noCache });
+    const { data, error } = useAsyncData(DATA_KEY, errorFetcher, { cache: noCache });
 
     expect(data).toBeFalsy();
     expect(error).toEqual(dummyError);
@@ -68,9 +60,24 @@ describe('useAsyncData', () => {
     const fallbackData = { value: 'fallbackValue' };
     const fetcher = () => ({ value: 'dummyValue' });
 
-    useAsyncData(DATA_KEY, fetcher, { fallback: { key: fallbackData }, cache });
-    const { data } = useAsyncData(DATA_KEY, fetcher, { cache });
+    useAsyncData(DATA_KEY, fetcher, { fallback: { key: fallbackData }, cache: noCache });
+    const { data } = useAsyncData(DATA_KEY, fetcher, { cache: noCache });
 
     expect(data).toEqual(fallbackData);
+  });
+
+  it('should return data from cache if available', () => {
+    const cache: AsyncCache = {
+      get: key => (key === DATA_KEY ? 'cachedValue' : undefined),
+      set: () => {},
+      delete: () => false,
+      clear: () => {}
+    };
+    const fetcher = () => ({ value: 'dummyValue' });
+
+    useAsyncData(DATA_KEY, fetcher, { cache });
+    const { data } = useAsyncData(DATA_KEY, fetcher, { cache });
+
+    expect(data).toBe('cachedValue');
   });
 });

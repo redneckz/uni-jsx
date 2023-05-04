@@ -3,15 +3,12 @@ import { isFilled } from './isFilled';
 import { AsyncCache, applyCache } from './AsyncCache';
 
 type Empty = null | undefined | false;
-type ArgumentsTuple = [any, ...unknown[]] | readonly [any, ...unknown[]];
-type SimpleKey = string;
-type Arguments = SimpleKey | ArgumentsTuple | Record<any, any> | Empty;
+type ArgumentsTuple = [any, ...unknown[]];
+type Arguments = string | ArgumentsTuple | Empty;
 
 export type Key = Arguments | (() => Arguments);
 
 type FetcherResponse<Data = unknown> = Data | Promise<Data>;
-
-type SimpleFetcher<Data = unknown> = (key: SimpleKey) => FetcherResponse<Data>;
 
 export type Fetcher<Data = unknown, K extends Key = Key> = K extends () => readonly [...infer Args] | Empty
   ? (...args: [...Args]) => FetcherResponse<Data>
@@ -26,7 +23,7 @@ export type Fetcher<Data = unknown, K extends Key = Key> = K extends () => reado
   : never;
 
 export interface AsyncDataOptions {
-  fallback?: Record<SimpleKey, unknown>;
+  fallback?: Record<string, unknown>;
   cache?: AsyncCache;
 }
 
@@ -39,7 +36,7 @@ export interface AsyncDataResponse<Data = any, Error = any> {
   mutate: Mutator<Data>; // TODO: No supported
 }
 
-const isSimpleKey = (args?: any[]): args is [SimpleKey] =>
+const isFallbackKey = (args?: any[]): args is [string] =>
   Boolean(args && Array.isArray(args) && args.length === 1 && typeof args[0] === 'string');
 
 export function useAsyncData<Data = any, Err = any, K extends Key = string>(
@@ -48,8 +45,6 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   { fallback, cache }: AsyncDataOptions = {}
 ): AsyncDataResponse<Data, Err> {
   const args = useMemo(() => keyToArgs(key), [key]);
-
-  const [simpleKey] = isSimpleKey(args) ? args : [];
 
   const [data, setData] = useState<Data | undefined>(undefined);
   const [error, setError] = useState<Err | undefined>(undefined);
@@ -70,7 +65,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
 
     (async () => {
       try {
-        setResult(await (simpleKey ? applyCache(fetcher as SimpleFetcher<Data>, cache)(simpleKey) : fetcher(...args)));
+        setResult(await applyCache(fetcher, cache)(args));
       } catch (err) {
         setResult(undefined, err as Err);
       }
@@ -81,7 +76,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
     };
   }, [fetcher, cache, args]);
 
-  const fallbackData = fallback && simpleKey && (fallback[simpleKey] as Data);
+  const fallbackData = fallback && isFallbackKey(args) && (fallback[args[0]] as Data);
 
   return {
     data: !data && fallbackData ? fallbackData : data,
@@ -90,7 +85,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   };
 }
 
-function keyToArgs<K extends Key = null>(key: K): Parameters<Fetcher<unknown, Key>> {
+function keyToArgs<K extends Key = null>(key: K): [any, ...unknown[]] {
   if (Array.isArray(key)) {
     return key;
   } else if (key instanceof Function) {

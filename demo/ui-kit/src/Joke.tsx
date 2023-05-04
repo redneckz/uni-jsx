@@ -1,5 +1,5 @@
 import { JSX } from '@redneckz/uni-jsx';
-import { useCallback } from '@redneckz/uni-jsx/lib/hooks';
+import { useCallback, useMemo } from '@redneckz/uni-jsx/lib/hooks';
 import { useAsyncData } from '@redneckz/uni-jsx/lib/hooks/useAsyncData';
 
 const CHUCK_JOKE_URL = 'https://api.chucknorris.io/jokes/random';
@@ -34,17 +34,16 @@ const CATEGORIES = [
 
 export const Joke = JSX<JokeProps>(({ timeout = 0, rnd = 0 }) => {
   const fetcher = useCallback(
-    async (url: string) => {
+    async (url: string, category: string) => {
       await delay(timeout);
-      return fetchJSON<ChuckJoke>(url);
+      return fetchJSON<ChuckJoke>(`${url}?category=${category}`);
     },
     [timeout]
   );
 
-  const { data: chuckJoke } = useAsyncData<ChuckJoke>(
-    `${CHUCK_JOKE_URL}?category=${CATEGORIES[rnd % CATEGORIES.length]}`,
-    fetcher
-  );
+  const key: [string, string] = useMemo(() => [CHUCK_JOKE_URL, CATEGORIES[rnd % CATEGORIES.length]], [rnd]);
+
+  const { data: chuckJoke } = useAsyncData(key, fetcher);
 
   return (
     <section>
