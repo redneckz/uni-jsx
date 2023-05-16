@@ -2,7 +2,7 @@
 import { watchPostEffect } from 'vue';
 import { areDepsEqual } from './areDepsEqual';
 import { getCurrentHook } from './getCurrentHook';
-import { isSSR } from './isSSR';
+import { isSSR } from '../isSSR';
 
 export const useEffect = updateEffectImp();
 export const useLayoutEffect = updateEffectImp(true);
