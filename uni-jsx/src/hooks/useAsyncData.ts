@@ -3,7 +3,7 @@ import { isFilled } from './isFilled';
 import { AsyncCache, applyCache } from './AsyncCache';
 
 type Empty = null | undefined | false;
-type ArgumentsTuple = [any, ...unknown[]];
+type ArgumentsTuple = any[];
 type Arguments = string | ArgumentsTuple | Empty;
 
 export type Key = Arguments | (() => Arguments);
@@ -85,7 +85,7 @@ export function useAsyncData<Data = any, Err = any, K extends Key = string>(
   };
 }
 
-function keyToArgs<K extends Key = null>(key: K): [any, ...unknown[]] {
+function keyToArgs<K extends Key = null>(key: K): any[] {
   if (Array.isArray(key)) {
     return key;
   } else if (key instanceof Function) {
