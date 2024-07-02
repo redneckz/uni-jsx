@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/uni-jsx",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "license": "MIT",
   "author": {
     "name": "redneckz",
@@ -56,6 +56,26 @@
       "require": "./dist/hooks/*.js",
       "types": "./lib/hooks/*.d.ts"
     },
+    "./lib/EventBus": {
+      "import": "./lib/EventBus/index.js",
+      "require": "./dist/EventBus/index.js",
+      "types": "./lib/EventBus/index.d.ts"
+    },
+    "./lib/EventBus/*": {
+      "import": "./lib/EventBus/*.js",
+      "require": "./dist/EventBus/*.js",
+      "types": "./lib/EventBus/*.d.ts"
+    },
+    "./lib/Store": {
+      "import": "./lib/Store/index.js",
+      "require": "./dist/Store/index.js",
+      "types": "./lib/Store/index.d.ts"
+    },
+    "./lib/Store/*": {
+      "import": "./lib/Store/*.js",
+      "require": "./dist/Store/*.js",
+      "types": "./lib/Store/*.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -78,7 +98,7 @@
     "rimraf": "^4.1.2",
     "size-limit": "^8.2.4",
     "ts-jest": "^29.0.5",
-    "typescript": "4.7.4"
+    "typescript": "4.8.4"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
@@ -99,6 +119,12 @@
     },
     {
       "path": "lib/hooks/**/*.js"
+    },
+    {
+      "path": "lib/EventBus/**/*.js"
+    },
+    {
+      "path": "lib/Store/**/*.js"
     }
   ]
 }

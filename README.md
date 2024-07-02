@@ -21,6 +21,24 @@ Also the following React-like core hooks are available for `Vue3`:
 - `useMemo`
 - `useRef`
 
+Additional reusable hooks:
+
+```ts
+const [value, { setValue, setTrue, setFalse, toggle }] = useBool(false);
+const [list, { setList, push, pop, remove, clear }] = useList([]);
+const [dict, { setDict, setItem, removeItem, assign, unassign, clear }] = useDict({});
+
+// See useSWR
+const { data, error } = useAsyncData(key, fetcher, { fallback, cache });
+
+useEventListener(target, 'eventType', handler);
+
+// Useful for popups
+const targetRef = useOutsideClick(handleOutsideClick);
+
+const globalLibrary = useScript('globalName', 'https://some/script.js');
+```
+
 ## Workspaces
 
 - [uni-jsx/](./uni-jsx/README.md) Unified JSX core library

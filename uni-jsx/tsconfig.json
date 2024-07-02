@@ -5,6 +5,7 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "strict": true,
+    "noImplicitAny": false,
     "alwaysStrict": false,
     "allowJs": true,
     "declaration": true,
