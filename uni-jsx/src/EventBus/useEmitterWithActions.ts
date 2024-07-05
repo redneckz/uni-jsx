@@ -18,8 +18,7 @@ export function useEmitterWithActions<EM extends Record<string, any>, K extends 
       new Proxy({} as ActionEmittersMap<EM[K]>, {
         get(_, actionType) {
           cache.current ||= {};
-          cache.current[actionType] ||= action => eventBus.fire(type, { type: actionType, ...(action ?? {}) } as EM[K]);
-
+          cache.current[actionType] ||= action => eventBus.fire(type, { ...(action ?? {}), type: actionType } as EM[K]);
           return cache.current[actionType];
         }
       }),
